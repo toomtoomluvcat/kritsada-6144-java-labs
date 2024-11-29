@@ -19,7 +19,7 @@ public class PrimitiveDataType {
         long myLong =6730406144l;
         float myFlaot  = 0.80f;
         double myDoule = 0.6144;
-        char myChar = firstName.charAt(0);
+        char myChar = 'k';
         boolean myBoolean = false;
         System.out.print("Student ID: "+studentNumber);
         System.out.println("First Name :"+firstName);

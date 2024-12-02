@@ -1,6 +1,7 @@
 package lab2.beapthong.kritsada.lab2;
 
 public class SimpleStringManipulator {
+
     /* The simple String manipulator 
      * program recive input two argrument
      and process 
@@ -13,10 +14,14 @@ public class SimpleStringManipulator {
     ID:673040614-4
     Sec:2
     last update on 11/30/2024 7:57*/
+    
     public static void main(String[] args) {
+
+        //check an error and display
         if (args.length != 2) {
             System.out.println("Invalid number of argument. Please provide exactly two Strings as arguments");
         } else {
+            //recice argument
             String word1 = args[0];
             String word2 = args[1];
             char firstLetter = word1.charAt(0);
@@ -24,7 +29,8 @@ public class SimpleStringManipulator {
 
             System.out.println("First String: " + word1);
             System.out.println("Secound String: " + word2);
-
+            
+            //process and merg argumemt
             if (firstLetter == 'a' || firstLetter == 'e'
                     || firstLetter == 'i' || firstLetter == 'o'
                     || firstLetter == 'u') {

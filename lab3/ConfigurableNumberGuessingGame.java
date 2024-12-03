@@ -32,21 +32,21 @@ public class ConfigurableNumberGuessingGame {
             }    
         }
         
-        int randomint = (int) (Math.random()*maxvalue)+minvalue;
+        int randomInt = (int) (Math.random()*maxvalue)+minvalue;
         System.out.println("welcome to a number guessing game!");
         while(numofRound<attemp){
             System.out.print("Enter an iteger between "+minvalue+" and "+maxvalue+": ");
-            int chooseint = sc.nextInt();
-            if(chooseint<minvalue || chooseint>maxvalue){
+            int chooseInt = sc.nextInt();
+            if(chooseInt<minvalue || chooseInt>maxvalue){
                 System.out.println("The number must be between "+minvalue+" and "+maxvalue);
                 continue;
             }
          
             numofRound +=1;
 
-            if(chooseint>randomint){
+            if(chooseInt>randomInt){
                 System.out.println("Try lower number!");
-            } else if (chooseint<randomint){
+            } else if (chooseInt<randomInt){
                 System.out.println("Try higher number!");
             } else {
                 System.out.println("Congratulations!");
@@ -56,7 +56,7 @@ public class ConfigurableNumberGuessingGame {
         }
         if (attemp == numofRound){
             System.out.println("You have tired 5 times. You ran out of guesses");
-            System.out.println("The answer is "+randomint );
+            System.out.println("The answer is "+randomInt );
         }
     }
 }

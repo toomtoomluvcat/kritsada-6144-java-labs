@@ -35,7 +35,7 @@ public class NumberGuessingGames {
 
         while (true) {
             tries = sc.nextInt();
-            if (tries >0) {
+            if (tries > 0) {
                 break;
             } else {
                 System.out.println("The maximum number of tries must be greater than 0");
@@ -47,7 +47,7 @@ public class NumberGuessingGames {
 
     public static void gameStart(int min, int max, int maxround) {
         System.out.println("Welcome to number guessing game!");
-        int randomValue = (int) (Math.random() * (max - min + 1)) + min;
+        int randomValue = (int) (Math.random() * (max - min) + 1);
         int choose;
         int attempt = 0;
 
@@ -68,7 +68,11 @@ public class NumberGuessingGames {
                     System.out.println("Try higher number!");
                 } else {
                     System.out.println("Congratulations!");
-                    System.out.println("Your have tired " + attempt + " time");
+                    if (attempt == 1) {
+                        System.out.println("Your have tired " + attempt + " time");
+                    } else {
+                        System.out.println("Your have tired " + attempt + " times");
+                    }
                     break;
                 }
             }
@@ -78,7 +82,8 @@ public class NumberGuessingGames {
             }
             System.out.print("Want to play again (Y or y): ");
             String checknextround = sc.next();
-            if (!checknextround.equalsIgnoreCase("y")){
+            if (!checknextround.equalsIgnoreCase("y")) {
+                System.out.println("Thank you for playing games.Bye!");
                 break;
             }
         }

@@ -32,7 +32,7 @@ public class ConfigurableNumberGuessingGame {
             }    
         }
         
-        int randomInt = (int) (Math.random()*maxvalue)+minvalue;
+        int randomInt = (int) (Math.random()*(maxvalue-minvalue)+1);
         System.out.println("welcome to a number guessing game!");
         while(numofRound<attemp){
             System.out.print("Enter an iteger between "+minvalue+" and "+maxvalue+": ");

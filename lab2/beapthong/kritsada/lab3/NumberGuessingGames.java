@@ -3,6 +3,7 @@ package lab2.beapthong.kritsada.lab3;
 import java.util.Scanner;
 
 public class NumberGuessingGames {
+
     /*
     * the Configurable number guessing game program :
     * this program will recice 3 input first input is min value 
@@ -28,6 +29,7 @@ public class NumberGuessingGames {
         gameStart(range[0], range[1], triesround); //sent a agrument with min max maxtires
 
     }
+
     //function recipe max min value
     public static int[] askuMinMax() {
         System.out.print("Enter min value: ");
@@ -45,7 +47,6 @@ public class NumberGuessingGames {
         }
         return new int[]{minvalue, maxvalue};
     }
-
 
     //function recipe maxtires
     public static int tries() {
@@ -71,7 +72,7 @@ public class NumberGuessingGames {
         int choose;
         int attempt = 0;
 
-        while (attempt<maxround) {
+        while (attempt < maxround) {
             for (attempt = 0; attempt < maxround; attempt++) {
                 while (true) {
                     System.out.print("Enter integer between " + min + " and " + max + ": ");
@@ -89,7 +90,7 @@ public class NumberGuessingGames {
                     System.out.println("Try higher number!");
                 } else {
                     System.out.println("Congratulations!");
-                    
+
                     //correct gramma
                     if (attempt == 1) {
                         System.out.println("Your have tired " + attempt + " time");
@@ -103,7 +104,7 @@ public class NumberGuessingGames {
                 System.out.println("You have tired 5 times. You ran out of guesses");
                 System.out.println("The answer is " + randomValue);
             }
-            
+
             //ask player wannt to play again
             System.out.print("Want to play again (Y or y): ");
             String checknextround = sc.next();
@@ -115,5 +116,4 @@ public class NumberGuessingGames {
 
     }
 
-    
 }

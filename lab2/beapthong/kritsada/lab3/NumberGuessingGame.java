@@ -28,7 +28,7 @@ public class NumberGuessingGame{
 
         //start game!
         while(attemp<maxtires){
-            System.out.print("Enter an iteger between 1 and 10: ");
+            System.out.print("Enter an iteger between "+minvalue+" and "+maxvalue+": ");
             int chooseint = sc.nextInt();
             attemp +=1;
 

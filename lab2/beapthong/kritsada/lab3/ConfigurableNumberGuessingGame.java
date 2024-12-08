@@ -19,21 +19,21 @@ public class ConfigurableNumberGuessingGame {
         //decalre varieble
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the min value: ");
-        int minvalue = sc.nextInt();
-        int maxvalue;
+        int minValue = sc.nextInt();
+        int maxValue;
 
-        //loop util player enter correct maxvalue
+        //loop util player enter correct maxValue
         while (true) {
             System.out.print("Enter the max value: ");
-            maxvalue = sc.nextInt();
-            if (maxvalue<=minvalue){
+            maxValue = sc.nextInt();
+            if (maxValue<=minValue){
                 System.out.println("The max value must be at least equal to the min value");
             } else {
                 break;
             }
         }
 
-        int numofRound = 0;
+        int numOfRound = 0;
         int attemp; 
 
         //loop util player enter correct tires
@@ -47,17 +47,17 @@ public class ConfigurableNumberGuessingGame {
             }    
         }
         //start game!
-        int randomInt = (int) (Math.random()*(maxvalue-minvalue)+1); //make a random number
+        int randomInt = (int) (Math.random() * (maxValue - minValue + 1)) + minValue;; //make a random number
         System.out.println("welcome to a number guessing game!");
-        while(numofRound<attemp){
-            System.out.print("Enter an iteger between "+minvalue+" and "+maxvalue+": ");
+        while(numOfRound<attemp){
+            System.out.print("Enter an iteger between "+minValue+" and "+maxValue+": ");
             int chooseInt = sc.nextInt();
-            if(chooseInt<minvalue || chooseInt>maxvalue){
-                System.out.println("The number must be between "+minvalue+" and "+maxvalue);
+            if(chooseInt<minValue || chooseInt>maxValue){
+                System.out.println("The number must be between "+minValue+" and "+maxValue);
                 continue;
             }
          
-            numofRound +=1;
+            numOfRound +=1;
 
             //tell hint to player
             if(chooseInt>randomInt){
@@ -67,12 +67,12 @@ public class ConfigurableNumberGuessingGame {
             } else {
                 //if plyer guess correct break loop
                 System.out.println("Congratulations!");
-                System.out.println("Your have tired "+ numofRound+ " time");
+                System.out.println("Your have tired "+ numOfRound+ " time");
                 break;
             }
         }
         //tell play if he/him try to correct more than round they want
-        if (attemp == numofRound){
+        if (attemp == numOfRound){
             System.out.println("You have tired 5 times. You ran out of guesses");
             System.out.println("The answer is "+randomInt );
         }

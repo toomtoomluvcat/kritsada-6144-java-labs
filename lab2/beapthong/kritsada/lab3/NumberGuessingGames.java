@@ -25,27 +25,27 @@ public class NumberGuessingGames {
 
     public static void main(String[] args) {
         int[] range = askuMinMax();
-        int triesround = tries();
-        gameStart(range[0], range[1], triesround); //sent a agrument with min max maxtires
+        int triesRound = tries();
+        gameStart(range[0], range[1], triesRound); //sent a agrument with min max maxtires
 
     }
 
     //function recipe max min value
     public static int[] askuMinMax() {
         System.out.print("Enter min value: ");
-        int minvalue = sc.nextInt();
-        int maxvalue;
+        int minValue = sc.nextInt();
+        int maxValue;
 
         //try util enter correct format provided
         while (true) {
             System.out.print("Enetr max value: ");
-            maxvalue = sc.nextInt();
-            if (maxvalue > minvalue) {
+            maxValue = sc.nextInt();
+            if (maxValue > minValue) {
                 break;
             }
             System.out.println("The max value must be at least equal to the min value");
         }
-        return new int[]{minvalue, maxvalue};
+        return new int[]{minValue, maxValue};
     }
 
     //function recipe maxtires
@@ -68,7 +68,7 @@ public class NumberGuessingGames {
     //game start with three argument
     public static void gameStart(int min, int max, int maxround) {
         System.out.println("Welcome to number guessing game!");
-        int randomValue = (int) (Math.random() * (max - min) + 1);
+        int randomValue = (int) (Math.random() * (max - min + 1)) + min;
         int choose;
         int attempt = 0;
 

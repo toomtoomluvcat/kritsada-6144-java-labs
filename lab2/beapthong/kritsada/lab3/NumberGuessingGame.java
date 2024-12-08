@@ -20,22 +20,22 @@ public class NumberGuessingGame{
 
         //declare varieble
         Scanner sc = new Scanner(System.in);
-        int minvalue = 1;
-        int maxvalue = 10;
-        int randomint = (int) (Math.random()*(maxvalue-minvalue)+1);
+        int minValue = 1;
+        int maxValue = 10;
+        int randomInt = (int) (Math.random() * (maxValue - minValue + 1)) + minValue;
         int maxtires = 6;
         int attemp =0;
 
         //start game!
         while(attemp<maxtires){
-            System.out.print("Enter an iteger between "+minvalue+" and "+maxvalue+": ");
+            System.out.print("Enter an iteger between "+minValue+" and "+maxValue+": ");
             int chooseint = sc.nextInt();
             attemp +=1;
 
             //tell hint
-            if(chooseint>randomint){
+            if(chooseint>randomInt){
                 System.out.println("Try lower number!");
-            } else if (chooseint<randomint){
+            } else if (chooseint<randomInt){
                 System.out.println("Try higher number!");
             } else {
                 //amazing! player correct answer -0-)b
@@ -51,7 +51,7 @@ public class NumberGuessingGame{
         //tell if player can't guess number 
         if (attemp == maxtires){
             System.out.println("You have tired 5 times. You ran out of guesses");
-            System.out.println("The answer is "+randomint );
+            System.out.println("The answer is "+randomInt );
         }
       sc.close();
     }

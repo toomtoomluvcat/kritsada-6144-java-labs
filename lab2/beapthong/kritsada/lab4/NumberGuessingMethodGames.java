@@ -2,7 +2,7 @@ package lab2.beapthong.kritsada.lab4;
 
 import java.util.Scanner;
 
-class NumberGuessingMethodGames {
+public class NumberGuessingMethodGames {
 
     static int minValue;
     static int maxValue;
@@ -13,7 +13,6 @@ class NumberGuessingMethodGames {
 
     public static void main(String args[]) {
         configure();
-
         playGame();
 
     }
@@ -70,13 +69,16 @@ class NumberGuessingMethodGames {
             System.out.println("Try higher number!");
         }
     }
-
-    public static void theGameStartagain() {
+    //ask player want to play again
+    public static void theGameStartAgain() {
         System.out.print("Want to play again (Y or y): ");
         input.nextLine();
         String wantplay = input.nextLine();
         if (wantplay.equalsIgnoreCase("y")) {
             playGame();
+        } else {
+            System.out.println("Thank you for playing our game. Bye!");
+            System.exit(0);
         }
     }
 
@@ -91,18 +93,18 @@ class NumberGuessingMethodGames {
             if (answer != guessValue && (i + 1) == tires) {
                 System.out.println(String.format("you have tired %d", i + 1));
                 System.out.println(String.format("The answer is %d", answer));
-                theGameStartagain();
+                theGameStartAgain();
                 return;
             } else if (answer != guessValue) {
                 highLow();
             } else {
                 System.out.println("Congratulations!");
                 System.out.println(String.format("you have tired %d", i + 1));
-                theGameStartagain();
+                theGameStartAgain();
                 break;
             }
 
         }
     }
-
+    
 }

@@ -37,8 +37,7 @@ public class NumberGuessingMethodGamesV2 extends NumberGuessingMethodGames {
 
     public static void historyChoose() {
         
-        //loop util player want to stop and if her/him input 'a' display all if else input 'g' they can choose index of answer
-        
+        //loop util player want to stop and if her/him input 'a' display all if else input 'g' they can choose index of answer  
         while (true) {
             System.out.print("Enter 'a' to list all guesses, 'g' for a specific guess, or any key to quit: ");
             String wantToshow = input.nextLine();

@@ -24,14 +24,14 @@ public class NumberGuessingGames {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        int[] range = askuMinMax();
+        int[] range = askMinMax();
         int triesRound = tries();
         gameStart(range[0], range[1], triesRound); //sent a agrument with min max maxtires
 
     }
 
     //function recipe max min value
-    public static int[] askuMinMax() {
+    public static int[] askMinMax() {
         System.out.print("Enter min value: ");
         int minValue = sc.nextInt();
         int maxValue;
@@ -61,59 +61,60 @@ public class NumberGuessingGames {
                 System.out.println("The maximum number of tries must be greater than 0");
             }
         }
-
         return maxtries;
     }
 
     //game start with three argument
-    public static void gameStart(int min, int max, int maxround) {
+    public static void gameStart(int min, int max, int maxRound) {
         System.out.println("Welcome to number guessing game!");
         int randomValue = (int) (Math.random() * (max - min + 1)) + min;
-        int choose;
-        int attempt = 0;
 
-        while (attempt < maxround) {
-            for (attempt = 0; attempt < maxround; attempt++) {
-                while (true) {
-                    System.out.print("Enter integer between " + min + " and " + max + ": ");
-                    choose = sc.nextInt();
-                    if (choose <= max && choose >= min) {
-                        break;
-                    }
-                    System.out.println("The number must be between " + min + " and " + max);
-                }
-                //tell hint
-                if (choose > randomValue) {
+        for (int i = 0; i < maxRound; i++) {
+            System.out.print(String.format("Enter integer between %d and %d: ", min, max));
+            int playerGuess = sc.nextInt();
+
+            //check answer out of range!
+            while (playerGuess < min || playerGuess > max) {
+                System.out.println(String.format("The number must be between %d and %d ", min,max));
+                System.out.print(String.format("Enter integer between %d and %d: ", min, max));
+                playerGuess = sc.nextInt();
+            }
+            sc.nextLine(); //clearbuffer
+            if (randomValue != playerGuess && (i + 1) == maxRound) {
+                
+                //if player guessign max tires and they still false
+                System.out.println(String.format(i == 0
+                        ? "you have tired 1 time"
+                        : "you have tired %d times", i + 1));
+                System.out.println(i == 0
+                        ? "You have tired " + (i + 1) + " time. You ran out of guesses"
+                        : "You have tired " + (i + 1) + " times. You ran out of guesses");
+                System.out.println(String.format("The answer is %d", randomValue));
+            } else if (randomValue != playerGuess) {
+                //give player hint
+                if (playerGuess > randomValue) {
                     System.out.println("Try lower number!");
-
-                } else if (choose < randomValue) {
-                    System.out.println("Try higher number!");
                 } else {
-                    System.out.println("Congratulations!");
-
-                    //correct gramma
-                    if (attempt == 1) {
-                        System.out.println("Your have tired " + attempt + " time");
-                    } else {
-                        System.out.println("Your have tired " + attempt + " times");
-                    }
-                    break;
+                    System.out.println("Try higher number!");
                 }
-            }
-            if (attempt > maxround) {
-                System.out.println("You have tired 5 times. You ran out of guesses");
-                System.out.println("The answer is " + randomValue);
-            }
-
-            //ask player wannt to play again
-            System.out.print("Want to play again (Y or y): ");
-            String checknextround = sc.next();
-            if (!checknextround.equalsIgnoreCase("y")) {
-                System.out.println("Thank you for playing games.Bye!");
+            } else {
+                //if player correct answer break loop
+                System.out.println("Congratulations!");
+                System.out.println(String.format(i == 0
+                        ? "you have tired 1 time"
+                        : "you have tired %d times", i + 1));
                 break;
             }
+
+        }
+        //Start game again
+        System.out.print("Want to play again (Y or y): ");
+        String wantplay = sc.nextLine();
+        if (wantplay.equalsIgnoreCase("y")) {
+            gameStart(min, max, maxRound);
+        } else {
+            System.out.println("Thank you for playing our game. Bye!");
         }
 
     }
-
 }

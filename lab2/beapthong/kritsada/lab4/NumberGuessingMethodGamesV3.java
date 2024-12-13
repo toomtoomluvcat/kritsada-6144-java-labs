@@ -1,6 +1,6 @@
 package lab2.beapthong.kritsada.lab4;
 
- /*
+/*
     * the NumberGuessingMethodGamesV2 program :
     * this program will recice 3 input first input is min value 
     seccound input is max value third input is tired player can play this game
@@ -39,7 +39,7 @@ public class NumberGuessingMethodGamesV3 extends NumberGuessingMethodGamesV2 {
     public static void main(String[] args) {
         //called method
         configure();
-        playGame3();
+        playGames3();
         displayStatic();
         input.close();
     }
@@ -59,13 +59,17 @@ public class NumberGuessingMethodGamesV3 extends NumberGuessingMethodGamesV2 {
 
     //ask player want to play again 
     public static void playGames3() {
-        gamePlayed++; //increase num of game play
-        System.out.print("Want to play again (Y or y): ");
-        String wantplay = input.nextLine();
-        if (wantplay.equalsIgnoreCase("y")) {
-            playGame3();
+        if (gamePlayed != 0) {
+
+            System.out.print("Want to play again (Y or y): ");
+            String wantplay = input.nextLine();
+            if (wantplay.equalsIgnoreCase("y")) {
+                playGame3();
+            } else {
+                System.out.println("Thank you for playing our game. Bye!");
+            }
         } else {
-            System.out.println("Thank you for playing our game. Bye!");
+            playGame3();
         }
     }
 
@@ -80,7 +84,7 @@ public class NumberGuessingMethodGamesV3 extends NumberGuessingMethodGamesV2 {
             } else if (wantToshow.equalsIgnoreCase("g")) {
                 System.out.print("Enter the guess number: ");
                 int count = input.nextInt();
-                System.out.println(String.format("Guess %d: %d", count, answerArry[count]));
+                System.out.println(String.format("Guess %d: %d", count, answerArry[count - 1]));
                 input.nextLine();
             } else {
                 playGames3(); //start game again!
@@ -93,15 +97,19 @@ public class NumberGuessingMethodGamesV3 extends NumberGuessingMethodGamesV2 {
     public static void playGame3() {
         genAnswer();
         System.out.println("Welcome to a number guessing game!");
+        gamePlayed++; //increase num of game play
         for (int i = 0; i < tires; i++) {
             System.out.print(String.format("Enter integer between %d and %d: ", minValue, maxValue));
             guessValue = input.nextInt();
             checkValidGuess();//check valid range of answer 
             answerArry[i] = guessValue;
             if (answer != guessValue && (i + 1) == tires) {
-                System.out.println(String.format("you have tired %d", i + 1));
+                System.out.println(i == 0
+                        ? "You have tired " + (i + 1) + " times. You ran out of guesses"
+                        : "You have tired " + (i + 1) + " times. You ran out of guesses");
                 System.out.println(String.format("The answer is %d", answer));
                 statusGame = false; //playe lose
+                historyChoose3();
                 displayGameLog(i + 1);
                 keepStatic(i + 1);
             } else if (answer != guessValue) {
@@ -110,12 +118,13 @@ public class NumberGuessingMethodGamesV3 extends NumberGuessingMethodGamesV2 {
                 System.out.println("Congratulations!");
                 statusGame = true;
                 displayGameLog(i + 1);
+                historyChoose3();
                 keepStatic(i + 1);
                 gameWin++; //increase game win stack
                 break;
             }
         }
-        historyChoose3();
+
     }
 
     //display static of game

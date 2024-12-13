@@ -2,7 +2,7 @@ package lab2.beapthong.kritsada.lab4;
 
 import java.util.Scanner;
 
- /*
+/*
     * the Configurable number guessing game program :
     * this program will recice 3 input first input is min value 
     seccound input is max value third input is tired player can play this game
@@ -19,20 +19,21 @@ import java.util.Scanner;
     ID:673040614-4
     Sec:2
     last update in 12/13/2567*/
-
 public class NumberGuessingMethodGames {
+
     //decalre varieble
     static int minValue;
     static int maxValue;
     static int answer;
     static int guessValue;
     static int tires;
+    static int roundOfGame = 1;
     static Scanner input = new Scanner(System.in);
 
     public static void main(String args[]) {
         //called method
         configure();
-        playGame();
+        playGames();
 
     }
 
@@ -75,6 +76,7 @@ public class NumberGuessingMethodGames {
             guessValue = input.nextInt();
         }
     }
+
     //generate new answer in range of max and min number
     public static void genAnswer() {
         answer = (int) (Math.random() * (maxValue - minValue + 1)) + minValue;
@@ -88,16 +90,23 @@ public class NumberGuessingMethodGames {
             System.out.println("Try higher number!");
         }
     }
+
     //ask player want to play again
     public static void playGames() {
-        System.out.print("Want to play again (Y or y): ");
-        input.nextLine();
-        String wantplay = input.nextLine();
-        if (wantplay.equalsIgnoreCase("y")) {
-            playGame();
+        if (roundOfGame != 1) {
+            System.out.print("Want to play again (Y or y): ");
+            input.nextLine();
+            String wantplay = input.nextLine();
+            if (wantplay.equalsIgnoreCase("y")) {
+                roundOfGame++;
+                playGame();
+            } else {
+                System.out.println("Thank you for playing our game. Bye!");
+                System.exit(0);
+            }
         } else {
-            System.out.println("Thank you for playing our game. Bye!");
-            System.exit(0);
+            roundOfGame++;
+            playGame();
         }
     }
 
@@ -110,19 +119,31 @@ public class NumberGuessingMethodGames {
             guessValue = input.nextInt();
             checkValidGuess();
             if (answer != guessValue && (i + 1) == tires) {
-                System.out.println(String.format("you have tired %d", i + 1));
+                //if player guessign max tires and they still false
+                System.out.println(String.format(i == 0
+                        ? "you have tired 1 time"
+                        : "you have tired %d times", i + 1));
+                System.out.println(i == 0
+                        ? "You have tired " + (i + 1) + " time. You ran out of guesses"
+                        : "You have tired " + (i + 1) + " times. You ran out of guesses");
                 System.out.println(String.format("The answer is %d", answer));
-                return;
+                //called method to start again
+                playGames();
             } else if (answer != guessValue) {
+                //give player hint
                 highLow();
             } else {
+                //if player correct answer break loop
                 System.out.println("Congratulations!");
-                System.out.println(String.format("you have tired %d", i + 1));
+                System.out.println(String.format(i == 0
+                        ? "you have tired 1 time"
+                        : "you have tired %d times", i + 1));
+                //called method to start again
+                playGames();
                 break;
             }
         }
-        //called method to start again
-        playGames();
+
     }
-    
+
 }

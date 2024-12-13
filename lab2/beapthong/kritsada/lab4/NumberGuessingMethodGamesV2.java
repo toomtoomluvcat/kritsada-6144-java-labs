@@ -1,8 +1,6 @@
 package lab2.beapthong.kritsada.lab4;
 
-
-
- /*
+/*
     * the NumberGuessingMethodGamesV2 program :
     * this program will recice 3 input first input is min value 
     seccound input is max value third input is tired player can play this game
@@ -25,7 +23,6 @@ package lab2.beapthong.kritsada.lab4;
     ID:673040614-4
     Sec:2
     last update in 12/12/2567*/
-
 //heriate program before
 public class NumberGuessingMethodGamesV2 extends NumberGuessingMethodGames {
 
@@ -34,13 +31,14 @@ public class NumberGuessingMethodGamesV2 extends NumberGuessingMethodGames {
     public static void main(String[] args) {
         //called method
         configure();
-        playGame2();
+        playGames();
         input.close();
     }
 
     public static void historyChoose() {
-        input.nextLine();
+        
         //loop util player want to stop and if her/him input 'a' display all if else input 'g' they can choose index of answer
+        
         while (true) {
             System.out.print("Enter 'a' to list all guesses, 'g' for a specific guess, or any key to quit: ");
             String wantToshow = input.nextLine();
@@ -49,23 +47,30 @@ public class NumberGuessingMethodGamesV2 extends NumberGuessingMethodGames {
             } else if (wantToshow.equalsIgnoreCase("g")) {
                 System.out.print("Enter the guess number: ");
                 int count = input.nextInt();
-                System.out.println(String.format("Guess %d: %d", count, answerArry[count]));
                 input.nextLine();
+                System.out.println(String.format("Guess %d: %d", count, answerArry[count-1]));
             } else {
-                playGames2();
+                playGames();
                 break;
             }
         }
     }
 
     //ask player want to play again
-    public static void playGames2() {
-        System.out.print("Want to play again (Y or y): ");
-        String wantplay = input.nextLine();
-        if (wantplay.equalsIgnoreCase("y")) {
-            playGame2();
+    public static void playGames() {
+        if (roundOfGame != 1) { 
+            System.out.print("Want to play again (Y or y): ");
+            String wantplay = input.nextLine();
+            if (wantplay.equalsIgnoreCase("y")) {
+                roundOfGame++;
+                playGame();
+            } else {
+                System.out.println("Thank you for playing our game. Bye!");
+            }
         } else {
-            System.out.println("Thank you for playing our game. Bye!");
+            roundOfGame++;
+            playGame();
+            
         }
     }
 
@@ -85,25 +90,33 @@ public class NumberGuessingMethodGamesV2 extends NumberGuessingMethodGames {
         }
     }
 
-    public static void playGame2() {
+    public static void playGame() {
         genAnswer();
         System.out.println("Welcome to a number guessing game!");
         for (int i = 0; i < tires; i++) { //loop following max tires
             System.out.print(String.format("Enter integer between %d and %d: ", minValue, maxValue));
             guessValue = input.nextInt();
-            checkValidGuess(); //check valid range of answer 
-            answerArry[i] = guessValue; //append answer in to array
+            input.nextLine();
+            checkValidGuess(); 
+            answerArry[i] = guessValue; 
             if (answer != guessValue && (i + 1) == tires) { //if guessing ture
-                System.out.println(String.format("you have tired %d", i + 1));
+                System.out.println(i == 0
+                        ? "You have tired " + (i + 1) + " time. You ran out of guesses"
+                        : "You have tired " + (i + 1) + " times. You ran out of guesses");
                 System.out.println(String.format("The answer is %d", answer));
+                historyChoose();
             } else if (answer != guessValue) {
                 highLow();
             } else { //if guessing false and max of tires
+                //if player correct answer break loop
                 System.out.println("Congratulations!");
-                System.out.println(String.format("you have tired %d", i + 1));
+                System.out.println(String.format(i == 0
+                        ? "you have tired 1 time"
+                        : "you have tired %d times", i + 1));
+                historyChoose();
                 break;
             }
         }
-        historyChoose(); //show history of answer
+        
     }
 }

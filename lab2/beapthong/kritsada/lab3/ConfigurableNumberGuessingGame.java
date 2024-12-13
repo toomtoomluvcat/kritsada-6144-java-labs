@@ -49,7 +49,7 @@ public class ConfigurableNumberGuessingGame {
             }
         }
         //start game!
-        int randomInt = (int) (Math.random() * (maxValue - minValue + 1)) + minValue;; //make a random number
+        int randomInt = (int) (Math.random() * (maxValue - minValue + 1)) + minValue; //make a random number
         System.out.println("welcome to a number guessing game!");
         while (numOfRound < attemp) {
             System.out.print("Enter an iteger between " + minValue + " and " + maxValue + ": ");

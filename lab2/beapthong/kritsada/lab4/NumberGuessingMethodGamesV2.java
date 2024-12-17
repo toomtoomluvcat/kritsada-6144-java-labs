@@ -35,24 +35,27 @@ public class NumberGuessingMethodGamesV2 extends NumberGuessingMethodGames {
         input.close();
     }
 
-    public static void historyChoose() {
+    public static void  displayGuessesLoop() {
         
         //loop util player want to stop and if her/him input 'a' display all if else input 'g' they can choose index of answer  
-        while (true) {
-            System.out.print("Enter 'a' to list all guesses, 'g' for a specific guess, or any key to quit: ");
+        while (displayGuesses()) {
+        }
+    }
+    public static boolean displayGuesses(){
+        System.out.print("Enter 'a' to list all guesses, 'g' for a specific guess, or any key to quit: ");
             String wantToshow = input.nextLine();
             if (wantToshow.equalsIgnoreCase("a")) {
-                displayComprehensive();
+                displayComprehensive(); //show all
             } else if (wantToshow.equalsIgnoreCase("g")) {
-                System.out.print("Enter the guess number: ");
+                System.out.print("Enter the guess number: "); //show choice player want
                 int count = input.nextInt();
                 input.nextLine();
                 System.out.println(String.format("Guess %d: %d", count, answerArry[count-1]));
             } else {
                 playGames();
-                break;
+                return false;
             }
-        }
+            return true;
     }
 
     //ask player want to play again
@@ -103,7 +106,7 @@ public class NumberGuessingMethodGamesV2 extends NumberGuessingMethodGames {
                         ? "You have tired " + (i + 1) + " time. You ran out of guesses"
                         : "You have tired " + (i + 1) + " times. You ran out of guesses");
                 System.out.println(String.format("The answer is %d", answer));
-                historyChoose();
+                displayGuessesLoop();
             } else if (answer != guessValue) {
                 highLow();
             } else { //if guessing false and max of tires
@@ -112,7 +115,7 @@ public class NumberGuessingMethodGamesV2 extends NumberGuessingMethodGames {
                 System.out.println(String.format(i == 0
                         ? "you have tired 1 time"
                         : "you have tired %d times", i + 1));
-                historyChoose();
+                displayGuessesLoop();
                 break;
             }
         }

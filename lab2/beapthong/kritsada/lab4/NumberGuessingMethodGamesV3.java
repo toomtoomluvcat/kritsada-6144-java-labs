@@ -39,7 +39,7 @@ public class NumberGuessingMethodGamesV3 extends NumberGuessingMethodGamesV2 {
     public static void main(String[] args) {
         //called method
         configure();
-        playGames3();
+        playGames();
         displayStatic();
         input.close();
     }
@@ -58,49 +58,54 @@ public class NumberGuessingMethodGamesV3 extends NumberGuessingMethodGamesV2 {
     }
 
     //ask player want to play again 
-    public static void playGames3() {
+    public static void playGames() {
         if (gamePlayed != 0) {
-
             System.out.print("Want to play again (Y or y): ");
             String wantplay = input.nextLine();
             if (wantplay.equalsIgnoreCase("y")) {
-                playGame3();
+                playGame();
             } else {
                 System.out.println("Thank you for playing our game. Bye!");
             }
         } else {
-            playGame3();
+            playGame();
         }
     }
 
-    public static void historyChoose3() {
-        input.nextLine();  // claer buffer
-        while (true) {
-            //loop util player want to stop and if her/him input 'a' display all if else input 'g' they can choose index of answer
-            System.out.print("Enter 'a' to list all guesses, 'g' for a specific guess, or any key to quit: ");
-            String wantToshow = input.nextLine();
-            if (wantToshow.equalsIgnoreCase("a")) {
-                displayComprehensive();
-            } else if (wantToshow.equalsIgnoreCase("g")) {
-                System.out.print("Enter the guess number: ");
-                int count = input.nextInt();
-                System.out.println(String.format("Guess %d: %d", count, answerArry[count - 1]));
-                input.nextLine();
-            } else {
-                playGames3(); //start game again!
-                break;
-            }
+    public static void displayGuessesLoop() {
+        //loop util player want to stop and if her/him input 'a' display all if else input 'g' they can choose index of answer  
+        while (displayGuesses()) {
         }
+    }
+
+    public static boolean displayGuesses() {
+
+        System.out.print("Enter 'a' to list all guesses, 'g' for a specific guess, or any key to quit: ");
+
+        String wantToshow = input.nextLine();
+        if (wantToshow.equalsIgnoreCase("a")) {
+            displayComprehensive(); //show all
+        } else if (wantToshow.equalsIgnoreCase("g")) {
+            System.out.print("Enter the guess number: "); //show choice player want
+            int count = input.nextInt();
+            input.nextLine();
+            System.out.println(String.format("Guess %d: %d", count, answerArry[count - 1]));
+        } else {
+            playGames();
+            return false;
+        }
+        return true;
     }
 
     //game start!
-    public static void playGame3() {
+    public static void playGame() {
         genAnswer();
         System.out.println("Welcome to a number guessing game!");
         gamePlayed++; //increase num of game play
         for (int i = 0; i < tires; i++) {
             System.out.print(String.format("Enter integer between %d and %d: ", minValue, maxValue));
             guessValue = input.nextInt();
+            input.nextLine();
             checkValidGuess();//check valid range of answer 
             answerArry[i] = guessValue;
             if (answer != guessValue && (i + 1) == tires) {
@@ -109,7 +114,7 @@ public class NumberGuessingMethodGamesV3 extends NumberGuessingMethodGamesV2 {
                         : "You have tired " + (i + 1) + " times. You ran out of guesses");
                 System.out.println(String.format("The answer is %d", answer));
                 statusGame = false; //playe lose
-                historyChoose3();
+                displayGuessesLoop();
                 displayGameLog(i + 1);
                 keepStatic(i + 1);
             } else if (answer != guessValue) {
@@ -118,7 +123,7 @@ public class NumberGuessingMethodGamesV3 extends NumberGuessingMethodGamesV2 {
                 System.out.println("Congratulations!");
                 statusGame = true;
                 displayGameLog(i + 1);
-                historyChoose3();
+                displayGuessesLoop();
                 keepStatic(i + 1);
                 gameWin++; //increase game win stack
                 break;

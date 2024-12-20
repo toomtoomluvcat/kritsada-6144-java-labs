@@ -1,4 +1,4 @@
-package lab2.beapthong.kritsada.lab2;
+package beapthong.kritsada.lab2;
 
 public class SimpleStringManipulator {
 

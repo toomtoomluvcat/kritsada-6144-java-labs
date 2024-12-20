@@ -1,7 +1,5 @@
 package beapthong.kritsada.lab5;
 
-import java.util.Arrays;
-
 public class RecursiveMethods {
 	
     /**
@@ -68,12 +66,20 @@ public class RecursiveMethods {
         int[] checked = {1,2,3,1};
         
         System.out.println(String.format("Sum of digit in %d: %d ",testingNumber, sumOfDigits(testingNumber)));
-
-        System.out.println("Original array:\n"+Arrays.toString(checked));
-        System.out.println("Revese array:");
+        System.out.println("");
+        System.out.println("Original array: ");
+        for (int i =0; i<checked.length;i++){
+            System.out.print(checked[i]+" ");
+        }
+        
+        System.out.println("\nRevese array:");
         reverseArray(checked, 0, 3);
-
-        System.out.println("\ntesting palindrome: \n"+Arrays.toString(checked));
-		System.out.println(String.format("Is palindrome: %b",isPalindrome(checked, 0, 3)));
+        System.out.println("");
+        System.out.println("\ntesting palindrome:");
+        for (int i =0; i<checked.length;i++){
+            System.out.print(checked[i]+" ");
+        }
+        System.out.println("");
+		System.out.println(String.format("\nIs palindrome: %b",isPalindrome(checked, 0, 3)));
     }
 }

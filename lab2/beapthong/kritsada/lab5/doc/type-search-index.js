@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"beapthong.kritsada.lab5","l":"RecursiveMethods"}];updateSearchResults();

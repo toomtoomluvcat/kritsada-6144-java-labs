@@ -5,13 +5,43 @@ import java.util.Scanner;
 
 public class MatrixOperations {
 
+    /*
+ * Matrix Operations Program
+ * 
+ * This program allows users to create and perform various operations on a matrix.
+ * The user can select from multiple matrix creation options such as:
+ * 1. User input to manually enter matrix elements
+ * 2. Random matrix (values between 0 and 9)
+ * 3. All-zero matrix
+ * 4. All-ones matrix
+ * 5. Diagonal matrix (1's along the diagonal)
+ * 
+ * Once the matrix is created, the user can choose from the following operations:
+ * 1. Find the transpose of the matrix
+ * 2. Calculate and display the sum of rows and columns
+ * 3. Find and display the minimum and maximum elements
+ * 4. Display diagonal elements (only for square matrices)
+ * 5. Exit the program
+ * 
+ * The program supports dynamic matrix size selection and will continuously prompt the user 
+ * to select operations until they choose to exit.
+ * 
+ * Note: The program handles both square and non-square matrices where applicable, 
+ * and it validates user input for matrix dimensions and matrix creation choices.
+     
+  Auther:Kritsada beapthong
+        ID:673040614-4
+        Sec:2*/
+        
     // Variables to hold the matrix, number of rows, columns, and scanner for user input
     private static int[][] matrix;
     private static int rows;
     private static int columns;
     private static final Scanner scanner = new Scanner(System.in);
 
-    // Display the matrix creation menu for the user to select the matrix type
+    /*
+     * Display the matrix creation menu for the user to select the matrix type.
+     */
     public static void displayCreationMenu() {
         System.out.println("Matrix Creation Menu");
         System.out.println("1. User Input Matrix"); // Allow user to input matrix elements manually
@@ -71,7 +101,9 @@ public class MatrixOperations {
         }
     }
 
-    // Creates a diagonal matrix with 1's along the diagonal and 0's elsewhere
+    /*
+     * Creates a diagonal matrix with 1's along the diagonal and 0's elsewhere.
+     */
     public static void createDiagonalMatrix() {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
@@ -84,7 +116,9 @@ public class MatrixOperations {
         }
     }
 
-    // Displays the matrix in a formatted way
+    /*
+     * Displays the matrix in a formatted way.
+     */
     public static void displayMatrix(int[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
@@ -98,7 +132,9 @@ public class MatrixOperations {
         }
     }
 
-    // Display the matrix operations menu for the user to select an operation
+    /*
+     * Display the matrix operations menu for the user to select an operation.
+     */
     public static void displayOperationsMenu() {
         System.out.println("Matrix Operations Menu:");
         System.out.println("1. Find Transpose of the Matrix");
@@ -109,7 +145,9 @@ public class MatrixOperations {
         System.out.print("Enter your choice: ");
     }
 
-    // Transpose the matrix and display the result
+    /*
+     * Transpose the matrix and display the result.
+     */
     public static void transposeMatrix() {
         int[][] newMatrix = new int[columns][rows];
         System.out.println("Transposed Matrix:");
@@ -121,7 +159,9 @@ public class MatrixOperations {
         displayMatrix(newMatrix);
     }
 
-    // Calculate and display the sum of elements in each row and column
+    /*
+     * Calculate and display the sum of elements in each row and column.
+     */
     public static void calculateSums() {
         System.out.println("ROW sums:");
         // Calculate sum for each row
@@ -154,7 +194,9 @@ public class MatrixOperations {
         System.out.println();
     }
 
-    // Find and display the minimum and maximum elements in the matrix
+    /*
+     * Find and display the minimum and maximum elements in the matrix.
+     */
     public static void findMinMax() {
         int min = Integer.MAX_VALUE;
         int max = Integer.MIN_VALUE;
@@ -173,7 +215,9 @@ public class MatrixOperations {
         System.out.println("Maximum element: " + max);
     }
 
-    // Display diagonal elements if the matrix is square, else show an error message
+    /*
+     * Display diagonal elements if the matrix is square, else show an error message.
+     */
     public static void displayDiagonal() {
         if (columns != rows) {
             System.out.println("Matrix is not square. Cannot display diagonal elements");
@@ -182,7 +226,9 @@ public class MatrixOperations {
         }
     }
 
-    // Main method that controls the program flow
+    /*
+     * Main method that controls the program flow.
+     */
     public static void main(String[] args) {
         boolean continueProgram = true;
         while (continueProgram) {

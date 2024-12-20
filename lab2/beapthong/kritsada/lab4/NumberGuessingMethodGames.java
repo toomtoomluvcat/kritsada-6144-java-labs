@@ -113,7 +113,7 @@ public class NumberGuessingMethodGames {
     //game start!
     public static void playGame() {
         genAnswer();
-        System.out.println("Welcoem to a number guessing game!");
+        System.out.println("Welcome to a number guessing game!");
         for (int i = 0; i < tires; i++) { //loop fowlowing max of tires
             System.out.print(String.format("Enter integer between %d and %d: ", minValue, maxValue));
             guessValue = input.nextInt();

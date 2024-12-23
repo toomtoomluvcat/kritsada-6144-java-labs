@@ -1,4 +1,4 @@
-package lbeapthong.kritsada.lab3;
+package beapthong.kritsada.lab3;
 
 /*
     * the Configurable number guessing game program :
@@ -25,7 +25,7 @@ public class NumberGuessingGame{
         int randomInt = (int) (Math.random() * (maxValue - minValue + 1)) + minValue;
         int maxtires = 6;
         int attemp =0;
-
+        System.out.println("Welcome to number guessing game!");
         //start game!
         while(attemp<maxtires){
             System.out.print("Enter an iteger between "+minValue+" and "+maxValue+": ");
@@ -40,11 +40,8 @@ public class NumberGuessingGame{
             } else {
                 //amazing! player correct answer -0-)b
                 System.out.println("Congratulations!");
-                if (attemp == 1) {
-                    System.out.println("Your have tired " + attemp + " time");
-                } else {
-                    System.out.println("Your have tired " + attemp + " times");
-                }
+                System.out.println("You have tried " + attemp + (attemp == 1 ? " time." : " times."));
+                attemp=0;
                 break;
             }
         }

@@ -1,4 +1,4 @@
-package lab2.beapthong.kritsada.lab4;
+package beapthong.kritsada.lab4;
 
 import java.util.Scanner;
 
@@ -18,7 +18,7 @@ import java.util.Scanner;
     Auther:Kritsada beapthong
     ID:673040614-4
     Sec:2
-    last update in 12/13/2567*/
+    */
 public class NumberGuessingMethodGames {
 
     //decalre varieble
@@ -34,11 +34,11 @@ public class NumberGuessingMethodGames {
         //called method
         configure();
         playGames();
-
     }
 
     //recipt range of min max value
     public static void configure() {
+        
         System.out.print("Enter the min value: ");
         minValue = input.nextInt();
         System.out.print("Enter the max value: ");
@@ -113,19 +113,16 @@ public class NumberGuessingMethodGames {
     //game start!
     public static void playGame() {
         genAnswer();
-        System.out.println("Welcoem to a number guessing game!");
+        System.out.println("Welcome to a number guessing game!");
         for (int i = 0; i < tires; i++) { //loop fowlowing max of tires
             System.out.print(String.format("Enter integer between %d and %d: ", minValue, maxValue));
             guessValue = input.nextInt();
             checkValidGuess();
             if (answer != guessValue && (i + 1) == tires) {
                 //if player guessign max tires and they still false
-                System.out.println(String.format(i == 0
-                        ? "you have tired 1 time"
-                        : "you have tired %d times", i + 1));
                 System.out.println(i == 0
-                        ? "You have tired " + (i + 1) + " time. You ran out of guesses"
-                        : "You have tired " + (i + 1) + " times. You ran out of guesses");
+                        ? "You have tired " + (i + 1) + " time."
+                        : "You have tired " + (i + 1) + " times.");
                 System.out.println(String.format("The answer is %d", answer));
                 //called method to start again
                 playGames();
@@ -136,8 +133,8 @@ public class NumberGuessingMethodGames {
                 //if player correct answer break loop
                 System.out.println("Congratulations!");
                 System.out.println(String.format(i == 0
-                        ? "you have tired 1 time"
-                        : "you have tired %d times", i + 1));
+                        ? "you have tired 1 time."
+                        : "you have tired %d times.", i + 1));
                 //called method to start again
                 playGames();
                 break;

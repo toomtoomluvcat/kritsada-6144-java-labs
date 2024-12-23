@@ -5,6 +5,24 @@ import java.util.Scanner;
 
 public class MatrixOperations {
 
+    /*
+ * This program allows the user to create and manipulate matrices. 
+ * It provides an interactive menu to create different types of matrices 
+ * such as a user-input matrix, random matrix, all-zero matrix, 
+ * all-ones matrix, and diagonal matrix. 
+ * After creating the matrix, the program offers various operations 
+ * that can be performed on the matrix, such as transposing the matrix, 
+ * calculating the sum of rows and columns, finding the minimum and maximum 
+ * elements, and displaying diagonal elements (if the matrix is square).
+ * 
+ * The program handles matrix creation based on the user's choice and 
+ * performs the selected operations on the matrix.
+ * 
+ * Author: Kritsada Beapthong
+ * ID: 673040614-4
+ * Section: 2
+     */
+
     // Variables to hold the matrix, number of rows, columns, and scanner for user input
     private static int[][] matrix;
     private static int rows;
@@ -123,8 +141,7 @@ public class MatrixOperations {
 
     // Calculate and display the sum of elements in each row and column
     public static void calculateSums() {
-        System.out.println("ROW sums:");
-        // Calculate sum for each row
+        System.out.println("\nRow sums:");
         for (int i = 0; i < rows; i++) {
             int sumOfRows = 0;
             for (int j = 0; j < columns; j++) {
@@ -133,25 +150,16 @@ public class MatrixOperations {
             System.out.println(String.format("Row %d sum: %d", i + 1, sumOfRows));
         }
 
-        System.out.println();
-        // Transpose the matrix to calculate column sums
-        int[][] newMatrix = new int[columns][rows];
-        System.out.println("Transposed Matrix:");
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                newMatrix[j][i] = matrix[i][j];
-            }
-        }
-        // Calculate sum for each column (after transposition)
+        System.out.println("\nColumn sums:");
         for (int i = 0; i < columns; i++) {
-            int sumOfRows = 0;
+            int sumOfCols = 0;
             for (int j = 0; j < rows; j++) {
-                sumOfRows += newMatrix[i][j];
+                sumOfCols += matrix[j][i];
             }
-            System.out.println(String.format("Column %d sum: %d", i + 1, sumOfRows));
+            System.out.println(String.format("Column %d sum: %d", i + 1, sumOfCols));
         }
+        System.out.println("");
 
-        System.out.println();
     }
 
     // Find and display the minimum and maximum elements in the matrix
@@ -169,14 +177,14 @@ public class MatrixOperations {
                 }
             }
         }
-        System.out.println("Minimum element: " + min);
-        System.out.println("Maximum element: " + max);
+        System.out.println("\nMinimum element: " + min);
+        System.out.println("Maximum element: " + max+"\n");
     }
 
     // Display diagonal elements if the matrix is square, else show an error message
     public static void displayDiagonal() {
         if (columns != rows) {
-            System.out.println("Matrix is not square. Cannot display diagonal elements");
+            System.out.println("\nMatrix is not square. Cannot display diagonal elements\n");
         } else {
             createDiagonalMatrix(); // If square, create and display diagonal matrix
         }

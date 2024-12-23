@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"beapthong.kritsada.lab5","l":"RecursiveMethods"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"beapthong.kritsada.lab5","l":"MatrixOperations"},{"p":"beapthong.kritsada.lab5","l":"NumberAnalyzer"},{"p":"beapthong.kritsada.lab5","l":"RecursiveMethods"}];updateSearchResults();

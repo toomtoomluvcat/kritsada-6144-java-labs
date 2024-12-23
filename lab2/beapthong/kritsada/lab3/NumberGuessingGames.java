@@ -1,4 +1,4 @@
-package lab2.beapthong.kritsada.lab3;
+package beapthong.kritsada.lab3;
 
 import java.util.Scanner;
 

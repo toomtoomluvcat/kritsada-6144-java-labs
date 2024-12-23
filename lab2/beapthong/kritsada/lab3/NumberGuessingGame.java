@@ -1,4 +1,4 @@
-package lab2.beapthong.kritsada.lab3;
+package lbeapthong.kritsada.lab3;
 
 /*
     * the Configurable number guessing game program :

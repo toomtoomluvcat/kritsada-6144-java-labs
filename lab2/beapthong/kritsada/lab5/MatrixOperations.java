@@ -22,7 +22,6 @@ public class MatrixOperations {
  * ID: 673040614-4
  * Section: 2
      */
-
     // Variables to hold the matrix, number of rows, columns, and scanner for user input
     private static int[][] matrix;
     private static int rows;
@@ -100,20 +99,44 @@ public class MatrixOperations {
                 }
             }
         }
+        displayMatrix(matrix);
+
+    }
+
+    public static void createDiagonalMatrix2() {
+        System.out.println("");
+        int[][] matrixDiagonal = new int[rows][columns];
+        for (int i = 0; i < rows; i++) {
+
+            for (int j = 0; j < columns; j++) {
+                if (j == i) {
+                    matrixDiagonal[i][j] = matrix[i][j]; // Set 1 on the diagonal
+                } else {
+                    matrixDiagonal[i][j] = 0; // Set 0 off the diagonal
+                }
+            }
+        }
+        displayMatrix(matrixDiagonal);
     }
 
     // Displays the matrix in a formatted way
     public static void displayMatrix(int[][] matrix) {
+
         for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                // Properly format the matrix elements for display
-                if ((j + 1) % matrix[0].length != 0) {
-                    System.out.print(matrix[i][j] < 10 ? "   " + matrix[i][j] : "  " + matrix[i][j]);
+            for (int j = 0; j < matrix[i].length; j++) {
+
+                if (matrix[i][j] < 10) {
+                    System.out.print("   " + matrix[i][j]);
+                } else if (matrix[i][j] < 100) {
+                    System.out.print("  " + matrix[i][j]);
                 } else {
-                    System.out.println(matrix[i][j] < 10 ? "   " + matrix[i][j] : "  " + matrix[i][j]);
+                    System.out.print(" " + matrix[i][j]);
                 }
             }
+            System.out.println();
         }
+        System.out.println("");
+
     }
 
     // Display the matrix operations menu for the user to select an operation
@@ -130,7 +153,7 @@ public class MatrixOperations {
     // Transpose the matrix and display the result
     public static void transposeMatrix() {
         int[][] newMatrix = new int[columns][rows];
-        System.out.println("Transposed Matrix:");
+        System.out.println("\nTransposed Matrix:");
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 newMatrix[j][i] = matrix[i][j];
@@ -178,7 +201,7 @@ public class MatrixOperations {
             }
         }
         System.out.println("\nMinimum element: " + min);
-        System.out.println("Maximum element: " + max+"\n");
+        System.out.println("Maximum element: " + max + "\n");
     }
 
     // Display diagonal elements if the matrix is square, else show an error message
@@ -186,7 +209,7 @@ public class MatrixOperations {
         if (columns != rows) {
             System.out.println("\nMatrix is not square. Cannot display diagonal elements\n");
         } else {
-            createDiagonalMatrix(); // If square, create and display diagonal matrix
+            createDiagonalMatrix2(); // If square, create and display diagonal matrix
         }
     }
 
@@ -226,8 +249,9 @@ public class MatrixOperations {
                 System.out.println("Invalid choice. Please try again.");
                 continue;
             }
-            System.out.println("Created Matrix:");
+            System.out.println("\nCreated Matrix:");
             displayMatrix(matrix); // Display the created matrix
+
             // Operations menu loop
             boolean continueOperations = true;
             while (continueOperations) {

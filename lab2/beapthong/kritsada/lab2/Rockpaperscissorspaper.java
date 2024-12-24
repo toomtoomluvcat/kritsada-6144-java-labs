@@ -1,6 +1,5 @@
-package lab2.beapthong.kritsada.lab2;
+package beapthong.kritsada.lab2;
 
-import lab2.beapthong.kritsada.lab2.Rockpaperscissorspaper.Choice;
 
 /*
   * The Rock paperscisorspaperprogram 

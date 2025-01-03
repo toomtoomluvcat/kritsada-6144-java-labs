@@ -6,22 +6,24 @@ public class NumberGuessingOOPGame {
 
     public static Scanner input = new Scanner(System.in);
     private  GuessGame game;
-    private GuessGameV2 game2;
 
     public void configure() {
+        int defualtMaxTires =10;
+        this.game = new GuessGameV2();
         System.out.print("Enter the min value: ");
         int min = input.nextInt();
         System.out.print("Enter the max value: ");
         int max = input.nextInt();
+        this.game.configureGame(min, max, defualtMaxTires);
         System.out.print("Enter the maximum number of: ");
         int maxTries = input.nextInt();
-        this.game2 = new GuessGameV2(min, max, maxTries);
+        this.game.configureGame(min,max,maxTries);
     }
 
     public void playGame() {
         boolean playAgain;
         do {
-            boolean result = this.game2.playSingleGame();
+            boolean result = this.game.playSingleGame();
             System.out.println(result ? "You win!": "Better luck next time.");
             System.out.print("Do you want to play again (y/n): ");
             playAgain = input.next().equalsIgnoreCase("y");

@@ -42,17 +42,21 @@ public class GuessGame {
         this.maxTries = maxTries;
         return this.maxTries;
     }
-
-    public int setMin(int min) {
+    public int getAnswer(){
+        return  this.answer;
+    }
+    public int getAttempt(){
+        return  this.attempts;
+    }
+    public void setMin(int min) {
         this.min = min;
-        return this.min;
     }
-
-    public int setMax(int max) {
+    public void setMax(int max) {
         this.max = max;
-        return this.max;
     }
-
+    public void setAttemp(int attemps){
+        this.attempts = attemps;
+    }
     public void generateAnswer() {
         this.answer = (int) (Math.random() * (this.max - this.min + 1) + this.min);
     }
@@ -63,11 +67,6 @@ public class GuessGame {
         for (int i = 0; i < this.maxTries; i++) {
             System.out.print(String.format("Enter an inter between %d and  %d: ", this.min, this.max));
             int guesses = NumberGuessingOOPGame.input.nextInt();
-            while (guesses < this.min || guesses > this.max) {
-                System.out.println(String.format(String.format("The number must be between %d and %d ", this.min, this.max)));
-                System.out.print(String.format("Enter an inter between %d and  %d: ", this.min, this.max));
-                guesses = NumberGuessingOOPGame.input.nextInt();
-            }
             if (guesses != this.answer && i + 1 == maxTries) {
                 System.out.println(String.format("Sorry, you've used all your attempt. the correct. The correct answer was: %d", this.answer));
                 return false;
@@ -78,7 +77,8 @@ public class GuessGame {
                 System.out.println(guesses < this.answer ? "Try a higher number!" : "Try a lower number!");
             }
         }
-        return true; //assume this program has no error
+        return true; 
 
     }
+    
 }

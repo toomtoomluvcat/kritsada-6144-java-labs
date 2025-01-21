@@ -14,7 +14,6 @@ public class NumberGuessingOOPGameV3 {
      *
      * Author: Kritsada Beapthong ID: 673040614-4 Section: 2
      */
-
     // Scanner object to read user input
     public static Scanner input = new Scanner(System.in);
 
@@ -47,7 +46,7 @@ public class NumberGuessingOOPGameV3 {
      */
     public void playGame() {
         this.game.playSingleGame(); // Starts the game
-        GuessGameV3.addGameRecord(game); // Adds the completed game to records
+
         while (true) {
             // Menu options for the user
             System.out.println("Do you want to:");
@@ -55,20 +54,57 @@ public class NumberGuessingOOPGameV3 {
             int options = input.nextInt();
 
             switch (options) {
-                case 1 -> { // Play again
+                case 1 -> {
                     configure();
-                    playGame();
-                    break;
+                    game.playSingleGame();
                 }
-                case 2 -> { // View game records
-                    GuessGameV3.getGameLog();
-                    continue;
+                case 2 -> {
+                    viewRecords();
                 }
-                case 3 -> { // Quit the game
-                    System.out.println("Thank you for Playing the Number Guessing Game 3!");
+                case 3 -> {
+                    System.out.println("Thank you for playing the Number Guessing Game 3!");
                     System.exit(0);
                 }
+                default ->
+                    System.out.println("Invalid option. Please try again.");
             }
+        }
+    }
+
+    /**
+     * Displays game records base d on user choice: - Option 1: Shows all
+     * recorded games. - Option 2: Prompts the user for a specific game number
+     * and displays its details. Validates user input and handles invalid
+     * choices gracefully.
+     */
+
+    public void viewRecords() {
+        GuessGameV3[] records = GuessGameV3.getGameRecords();
+
+        System.out.println("View:");
+        System.out.println("1. Complete Records");
+        System.out.println("2. Specific Game Records");
+
+        int recordOption = input.nextInt();
+
+        if (recordOption == 1) {
+            for (int i = 0; i < GuessGameV3.getRecordCount(); i++) {
+                System.out.println("GAME " + (i + 1) + ": " + records[i].getGameLog());
+            }
+        } else if (recordOption == 2) {
+
+            System.out.print("Enter the game number to view: ");
+            int recordNumber = input.nextInt();
+
+            if (recordNumber > 0 && recordNumber <= GuessGameV3.getRecordCount()) {
+                System.out.println("GAME " + (recordNumber) + ": " + records[recordNumber - 1].getGameLog());
+            } else {
+                System.out.println("No record found for the selected game number.");
+
+            }
+        } else {
+            System.out.println("Invalid option. Returning to the main menu.");
+
         }
     }
 
@@ -80,4 +116,5 @@ public class NumberGuessingOOPGameV3 {
         program.configure(); // Configure the game settings
         program.playGame();  // Start the game
     }
+
 }

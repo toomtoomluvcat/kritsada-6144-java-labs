@@ -5,32 +5,27 @@ import javax.swing.*;
 
 public class MobileDeviceV2 extends MobileDeviceV1 {
 
-    /**
-     * MobileDeviceV2 extends MobileDeviceV1 to add functionality for selecting
-     * the operating system and entering device features. It enhances the user
-     * interface by incorporating a JComboBox for OS selection and a JTextArea
-     * with JScrollPane for inputting features. This version uses GridLayout for
-     * a more organized layout.
-     *
-     * The class builds on the previous version, improving usability with
-     * scrollable text areas and non-editable combo boxes, while retaining core
-     * functionality from MobileDeviceV1.
-     *
-     * Author: Kritsada Beapthong Student ID: 6730406144 Section: 2
-     */
-    
+    // Scroll pane for the features text area
     protected JScrollPane featuresScrollPane;
+    
+    // Labels for additional fields
     protected JLabel operatingLabel, featuresLabel;
+    
+    // Panel for additional information
     protected JPanel extraPanel;
+    
+    // ComboBox for selecting the operating system
     protected JComboBox<String> operatingComboBox;
+    
+    // TextArea for entering device features
     protected JTextArea featuresTextArea;
 
     // Constructor to set the window title
     public MobileDeviceV2(String title) {
         super(title);
     }
-// Method to create and display the GUI
 
+    // Method to create and display the GUI
     public static void createAndShowGUI() {
         MobileDeviceV2 mdv2 = new MobileDeviceV2("Mobile Device V2");
         mdv2.addComponents();
@@ -50,16 +45,18 @@ public class MobileDeviceV2 extends MobileDeviceV1 {
         addMoreInformation();       // Add additional fields (OS & Features)
     }
 
+    // Method to add more fields (Operating System & Features)
     protected void addMoreInformation() {
 
+        // Create a new main panel with BorderLayout
         mainPanel = new JPanel(new BorderLayout());
 
         // Create a label and a non-editable combo box for OS selection
         operatingLabel = createLabel("Operating System:");
         String[] options = {"Android", "iOS", "Windows", "Others"};
         operatingComboBox = new JComboBox<>(options);
-        operatingComboBox.setSelectedIndex(0);
-        operatingComboBox.setEditable(false);
+        operatingComboBox.setSelectedIndex(0); // Set default to "Android"
+        operatingComboBox.setEditable(false);  // Ensure it's non-editable
 
         // Create a label and a text area with scroll support for features
         featuresLabel = createLabel("Features:");
@@ -79,10 +76,10 @@ public class MobileDeviceV2 extends MobileDeviceV1 {
         extraPanel.add(featuresLabel);
         extraPanel.add(featuresScrollPane);
 
+        // Add the extra panel to the main panel at the center
         mainPanel.add(extraPanel, BorderLayout.CENTER);
-
+        
         // Add the main panel to the frame
         add(mainPanel, BorderLayout.CENTER);
     }
-
 }

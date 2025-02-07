@@ -1,6 +1,6 @@
 package beapthong.kritsada.lab8;
 
-import java.awt.*;
+import java.awt.BorderLayout;
 import javax.swing.*;
 
 public class MobileDeviceV2 extends MobileDeviceV1 {
@@ -45,24 +45,15 @@ public class MobileDeviceV2 extends MobileDeviceV1 {
     // Override the method to add components to the UI
     @Override
     public void addComponents() {
-        addButtonUnderComponents(); // Add buttons
-        addInformationInput();      // Add basic input fields
-        addMoreInformation();       // Add additional fields (OS & Features)
-    }
-
-    protected void addMoreInformation() {
-
-        mainPanel = new JPanel(new BorderLayout());
-
-        // Create a label and a non-editable combo box for OS selection
-        operatingLabel = createLabel("Operating System:");
+        super.addComponents();
+        operatingLabel = new JLabel("Operating System:");
         String[] options = {"Android", "iOS", "Windows", "Others"};
         operatingComboBox = new JComboBox<>(options);
         operatingComboBox.setSelectedIndex(0);
         operatingComboBox.setEditable(false);
 
         // Create a label and a text area with scroll support for features
-        featuresLabel = createLabel("Features:");
+        featuresLabel = new JLabel("Features:");
         featuresTextArea = new JTextArea(3, 25);
         featuresTextArea.setLineWrap(true);
         featuresTextArea.setWrapStyleWord(true);
@@ -79,10 +70,11 @@ public class MobileDeviceV2 extends MobileDeviceV1 {
         extraPanel.add(featuresLabel);
         extraPanel.add(featuresScrollPane);
 
-        mainPanel.add(extraPanel, BorderLayout.CENTER);
+        mainPanel.add(extraPanel,BorderLayout.CENTER);
 
         // Add the main panel to the frame
-        add(mainPanel, BorderLayout.CENTER);
+        add(mainPanel);
+        
     }
 
 }

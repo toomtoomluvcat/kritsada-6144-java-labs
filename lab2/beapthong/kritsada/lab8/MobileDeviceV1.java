@@ -22,16 +22,6 @@ public class MobileDeviceV1 extends MySimpleWindow {
         super(title);
     }
 
-    // Method to create a JLabel with given title
-    protected JLabel createLabel(String title) {
-        return new JLabel(title);
-    }
-
-    // Method to create a JTextField with specified column width
-    protected JTextField createTextField(int cols) {
-        return new JTextField(cols);
-    }
-
     // Method to create a JPanel with a GridLayout of specified rows and columns
     protected JPanel createPanelWithGridLayout(int rows, int cols) {
         JPanel Panel = new JPanel();
@@ -39,32 +29,30 @@ public class MobileDeviceV1 extends MySimpleWindow {
         return Panel;
     }
 
-    // Method to create a JRadioButton with given title
-    protected JRadioButton createRadioButton(String title) {
-        return new JRadioButton(title);
-    }
-
     // Method to add input fields and radio buttons to the form
-    protected void addInformationInput() {
+    @Override
+    public void addComponents() {
+        super.addComponents();
+
         // Creating labels
-        deviceNameLabel = createLabel("DeviceName:");
-        brandLabel = createLabel("Brand:");
-        priceLabel = createLabel("Price:");
-        typeLabel = createLabel("Type:");
+        deviceNameLabel = new JLabel("DeviceName:");
+        brandLabel = new JLabel("Brand:");
+        priceLabel = new JLabel("Price:");
+        typeLabel = new JLabel("Type:");
 
         // Creating text fields
-        deviceNameTextField = createTextField(15);
-        brandTextField = createTextField(15);
-        priceTextField = createTextField(15);
-        typeTextField = createTextField(15);
+        deviceNameTextField = new JTextField(15);
+        brandTextField = new JTextField(15);
+        priceTextField = new JTextField(15);
+        typeTextField = new JTextField(15);
 
         // Creating panels
         typePanel = createPanelWithGridLayout(1, 2);
         formPanel = createPanelWithGridLayout(4, 2);
 
         // Creating radio buttons and grouping them
-        smartphoneRadio = createRadioButton("SmartPhone");
-        tabletRadio = createRadioButton("Tablet");
+        smartphoneRadio = new JRadioButton("SmartPhone");
+        tabletRadio = new JRadioButton("Tablet");
         ButtonGroup radioGroup = new ButtonGroup();
         radioGroup.add(smartphoneRadio);
         radioGroup.add(tabletRadio);
@@ -92,23 +80,13 @@ public class MobileDeviceV1 extends MySimpleWindow {
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.add(formPanel, BorderLayout.NORTH);
-        add(mainPanel,BorderLayout.NORTH);
+        add(mainPanel);
 
         // Adding panels to the frame
-        
-
     }
 
-    @Override
-    public void addComponents() {
-        addButtonUnderComponents(); // Adding buttons (assumed to be in superclass)
-        addInformationInput(); // Adding form inputs
-
-       
-    }
-
-     // Method to create and display the GUI
-     public static void createAndShowGUI() {
+    // Method to create and display the GUI
+    public static void createAndShowGUI() {
         MobileDeviceV1 mdv1 = new MobileDeviceV1("Mobile Device V1");
         mdv1.addComponents();
         mdv1.setFrameFeatures(); // Setting frame properties (assumed to be in superclass)

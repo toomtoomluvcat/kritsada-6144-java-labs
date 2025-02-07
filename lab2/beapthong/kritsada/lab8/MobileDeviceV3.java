@@ -1,6 +1,5 @@
 package beapthong.kritsada.lab8;
 
-import java.awt.*;
 import javax.swing.*;
 
 public class MobileDeviceV3 extends MobileDeviceV2 {
@@ -21,22 +20,17 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
     protected JMenu fileMenu, configmMenu, sizemMenu, colorMenu, fontMenu;
     protected JMenuItem newItem, openItem, saveItem, exitItem, smallItem, mediumItem,
             largeItem, extraLargeItem, blackItem, redItem, greenItem, blueItem, font1Item, font2Item, font3Item;
-
-    // Helper method to create a JMenuItem with a given title
-    protected JMenuItem createJmenuItem(String title) {
-        return new JMenuItem(title);
-    }
-
+    
     // Method to create and add the menu bar to the window
-    protected void addMenuBar() {
+    protected void addMenus() {
         // Create a new JMenuBar
         deviceMenuBar = new JMenuBar();
 
         // Create menu items for the File menu
-        newItem = createJmenuItem("New");
-        openItem = createJmenuItem("Open");
-        saveItem = createJmenuItem("Save");
-        exitItem = createJmenuItem("Exit");
+        newItem = new JMenu("New");
+        openItem = new JMenu("Open");
+        saveItem = new JMenu("Save");
+        exitItem = new JMenu("Exit");
 
         // Create the File menu and add items to it
         fileMenu = new JMenu("File");
@@ -57,10 +51,10 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
         configmMenu.add(fontMenu);
 
         // Create menu items for the Size submenu
-        smallItem = createJmenuItem("Small");
-        mediumItem = createJmenuItem("Medium");
-        largeItem = createJmenuItem("Large");
-        extraLargeItem = createJmenuItem("Extra Large");
+        smallItem = new JMenu("Small");
+        mediumItem = new JMenu("Medium");
+        largeItem = new JMenu("Large");
+        extraLargeItem = new JMenu("Extra Large");
 
         // Add items to the Size submenu
         sizemMenu.add(smallItem);
@@ -69,10 +63,10 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
         sizemMenu.add(extraLargeItem);
 
         // Create menu items for the Color submenu
-        blackItem = createJmenuItem("Black");
-        redItem = createJmenuItem("Red");
-        greenItem = createJmenuItem("Green");
-        blueItem = createJmenuItem("Blue");
+        blackItem = new JMenu("Black");
+        redItem = new JMenu("Red");
+        greenItem = new JMenu("Green");
+        blueItem = new JMenu("Blue");
 
         // Add items to the Color submenu
         colorMenu.add(blackItem);
@@ -81,9 +75,9 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
         colorMenu.add(blueItem);
 
         // Create menu items for the Font submenu
-        font1Item = createJmenuItem("Font 1");
-        font2Item = createJmenuItem("Font 2");
-        font3Item = createJmenuItem("Font 3");
+        font1Item = new JMenu("Font 1");
+        font2Item = new JMenu("Font 2");
+        font3Item = new JMenu("Font 3");
 
         // Add items to the Font submenu
         fontMenu.add(font1Item);
@@ -100,18 +94,8 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
 
     @Override
     public void addComponents() {
-        // Add input fields and other components from parent classes
-        addInformationInput();
-        addMoreInformation();
-        // Add the menu bar
-        addMenuBar();
-        // Add buttons (OK, Cancel) at the bottom
-        addButtonUnderComponents();
-
-        // Arrange components in the window using BorderLayout
-        add(formPanel, BorderLayout.NORTH);    // Input fields at the top
-        add(extraPanel, BorderLayout.CENTER);  // Additional information in the center
-        add(buttonPanel, BorderLayout.SOUTH);  // Buttons at the bottom
+        super.addComponents();
+        addMenus();
     }
 
     // Constructor to set the title of the window
@@ -125,7 +109,7 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
         mdv3.addComponents();
         mdv3.setFrameFeatures();
     }
-
+    
     // Main method to launch the application
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> createAndShowGUI());

@@ -2,43 +2,34 @@ package beapthong.kritsada.lab9;
 
 import java.awt.*;
 import java.awt.image.*;
-import java.io.*;
-import javax.imageio.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 
 public class MobileDeviceV7 extends MobileDeviceV6 {
 
+    /**
+     * ReadImage - A custom JPanel class for loading and displaying images
+     *
+     * The class provides functionality to: - Load images from resources folder
+     * - Scale images smoothly using bilinear interpolation - Auto-resize image
+     * to fit panel dimensions - Handle missing image files with error handling
+     *
+     * Key methods: - Constructor: Loads image file from resources -
+     * paintComponent: Renders scaled image - getPreferredSize: Sets default
+     * 600x300 panel size
+     *
+     * Example usage: ReadImage panel = new ReadImage("myimage.jpg");
+     * frame.add(panel);
+     *
+     * Author: Kritsada Beapthong Student ID: 6730406144 Section: 2
+     */
     protected JPanel imagePanel, containnerSouthPanel;
     protected BufferedImage samsungImage;
 
-    public class ReadImage extends JPanel {
-
-        @Override
-        protected void paintComponent(Graphics img) {
-            super.paintComponent(img);
-            int panelWidth = getWidth();
-            int panelHeight = getHeight();
-
-            Image scaledImage = samsungImage.getScaledInstance(panelWidth, panelHeight, Image.SCALE_SMOOTH);
-            img.drawImage(scaledImage, 0, 0, this);
-        }
-
-        public ReadImage() {
-            try {
-                samsungImage = ImageIO.read(getClass().getResource("/images/S25-ultra.jpg"));
-            } catch (IOException error) {
-                System.out.println("Hello");
-
-                System.out.println("error: " + error);
-
-            }
-        }
-    }
-
+    //Overrides addComponents method to initialize and configure UI components.
     @Override
     public void addComponents() {
         super.addComponents();
+        //Sets default values 
         deviceNameTextField.setText("Samsung Galaxy S25 Ultra");
         brandTextField.setText("Samsung");
         priceTextField.setText("46,900");
@@ -60,27 +51,30 @@ public class MobileDeviceV7 extends MobileDeviceV6 {
         vendorsList.setSelectedIndex(0);
         rateSlide.setValue(9);
 
-        imagePanel = new ReadImage();
-        imagePanel.setPreferredSize(new Dimension(400, 300));
+        //Also adds image panel showing S25-ultra.jpg and configures layout:
+        imagePanel = new ReadImage("S25-ultra.jpg");
+        imagePanel.setPreferredSize(new Dimension(400, 300)); // Image panel sized 400x300
 
+        // Contained in south panel with extra panel above and button panel below
         containnerSouthPanel = new JPanel(new BorderLayout());
-        containnerSouthPanel.add(containnerExtraPanel,BorderLayout.NORTH);
+        containnerSouthPanel.add(containnerExtraPanel, BorderLayout.NORTH);
         containnerSouthPanel.add(imagePanel, BorderLayout.CENTER);
         containnerSouthPanel.add(buttonPanel, BorderLayout.SOUTH);
+        //Main panel uses BorderLayout with this container in SOUTH position
         mainPanel.add(containnerSouthPanel, BorderLayout.SOUTH);
 
     }
-
+    //super constructor
     public MobileDeviceV7(String title) {
         super(title);
     }
-
+    // Method to create and display the GUI
     public static void createAndShowGUI() {
         MobileDeviceV7 mdv7 = new MobileDeviceV7("Mobile device V7");
         mdv7.addComponents();
         mdv7.setFrameFeatures();
     }
-
+   // Main method to run the application
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> createAndShowGUI());
     }

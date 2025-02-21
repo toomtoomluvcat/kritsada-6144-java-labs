@@ -37,17 +37,17 @@ public class MobileDeviceV7 extends MobileDeviceV6 {
         operatingComboBox.setSelectedIndex(0);
         featuresTextArea.setText("-200MP Camera\r\n"
                 + //
-                "-1TB Storage\r\n"
+                "- 1TB Storage\r\n"
                 + //
-                "-Snapdragon Gen 4 Processor\r\n"
+                "- Snapdragon Gen 4 Processor\r\n"
                 + //
-                "-5000mAh Battery\r\n"
+                "- 5000mAh Battery\r\n"
                 + //
-                "-6.8-inch AMOLED Display\r\n"
+                "- 6.8-inch AMOLED Display\r\n"
                 + //
-                "-120Hz Refresh Rate\r\n"
+                "- 120Hz Refresh Rate\r\n"
                 + //
-                "-Fast Charging");
+                "- Fast Charging");
         vendorsList.setSelectedIndex(0);
         rateSlide.setValue(9);
 

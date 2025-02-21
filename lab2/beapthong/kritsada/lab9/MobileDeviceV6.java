@@ -57,7 +57,6 @@ public class MobileDeviceV6 extends MobileDeviceV5 {
         // Set submit button color scheme
         submitButton.setForeground(Color.green);
         submitButton.setBackground(Color.white);
-
       
     }
 

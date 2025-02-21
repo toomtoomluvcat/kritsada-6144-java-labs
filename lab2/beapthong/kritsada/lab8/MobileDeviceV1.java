@@ -17,6 +17,7 @@ public class MobileDeviceV1 extends MySimpleWindow {
     protected JTextField deviceNameTextField, brandTextField, priceTextField, typeTextField;
     protected JPanel typePanel, formPanel;
     protected JRadioButton smartphoneRadio, tabletRadio;
+    protected ButtonGroup groupPhone;
 
     public MobileDeviceV1(String title) {
         super(title);
@@ -68,10 +69,13 @@ public class MobileDeviceV1 extends MySimpleWindow {
         formPanel.add(priceLabel);
         formPanel.add(priceTextField);
 
+        groupPhone  = new ButtonGroup();
+        groupPhone.add(smartphoneRadio);
+        groupPhone.add(tabletRadio);
+        typePanel = new JPanel();
         // Adding radio buttons to type panel
         typePanel.add(smartphoneRadio);
         typePanel.add(tabletRadio);
-        typePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
         formPanel.add(typeLabel);
         formPanel.add(typePanel);

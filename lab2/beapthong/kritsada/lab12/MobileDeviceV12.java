@@ -14,6 +14,9 @@ public class MobileDeviceV12 extends MobileDeviceV11 {
         super(title);
     }
 
+
+    
+
     protected void handleNormalTextField(JTextField tf, JComponent nexComponent) {
         if (tf.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter some data in " + tf.getName());

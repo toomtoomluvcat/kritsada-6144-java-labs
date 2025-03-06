@@ -65,6 +65,8 @@ public class MobileDeviceCompleteV3 extends MobileDeviceCompleteV2 implements Co
     public void componentHidden(ComponentEvent e) {
     }
 
+   
+
     public MobileDeviceCompleteV3(String title) {
         super(title); // Call parent constructor with the title
         

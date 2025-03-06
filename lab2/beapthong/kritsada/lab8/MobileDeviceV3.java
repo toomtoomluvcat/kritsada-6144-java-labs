@@ -17,7 +17,7 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
 
     // Declare components for the menu bar and menu items
     protected JMenuBar deviceMenuBar;
-    protected JMenu fileMenu, configmMenu, sizemMenu, colorMenu, fontMenu;
+    protected JMenu fileMenu, configMenu, sizeMenu, colorMenu, fontMenu;
     protected JMenuItem newItem, openItem, saveItem, exitItem, smallItem, mediumItem,
             largeItem, extraLargeItem, blackItem, redItem, greenItem, blueItem, font1Item, font2Item, font3Item;
     
@@ -40,15 +40,15 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
         fileMenu.add(exitItem);
 
         // Create the Config menu and its submenus (Size, Color, Font)
-        configmMenu = new JMenu("Config");
-        sizemMenu = new JMenu("Size");
+        configMenu = new JMenu("Config");
+        sizeMenu = new JMenu("Size");
         colorMenu = new JMenu("Color");
         fontMenu = new JMenu("Font");
 
         // Add submenus to the Config menu
-        configmMenu.add(sizemMenu);
-        configmMenu.add(colorMenu);
-        configmMenu.add(fontMenu);
+        configMenu.add(sizeMenu);
+        configMenu.add(colorMenu);
+        configMenu.add(fontMenu);
 
         // Create menu items for the Size submenu
         smallItem = new JMenuItem("Small");
@@ -57,10 +57,10 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
         extraLargeItem = new JMenuItem("Extra Large");
 
         // Add items to the Size submenu
-        sizemMenu.add(smallItem);
-        sizemMenu.add(mediumItem);
-        sizemMenu.add(largeItem);
-        sizemMenu.add(extraLargeItem);
+        sizeMenu.add(smallItem);
+        sizeMenu.add(mediumItem);
+        sizeMenu.add(largeItem);
+        sizeMenu.add(extraLargeItem);
 
         // Create menu items for the Color submenu
         blackItem = new JMenuItem("Black");
@@ -86,7 +86,7 @@ public class MobileDeviceV3 extends MobileDeviceV2 {
 
         // Add the File and Config menus to the menu bar
         deviceMenuBar.add(fileMenu);
-        deviceMenuBar.add(configmMenu);
+        deviceMenuBar.add(configMenu);
 
         // Set the menu bar to the window
         setJMenuBar(deviceMenuBar);

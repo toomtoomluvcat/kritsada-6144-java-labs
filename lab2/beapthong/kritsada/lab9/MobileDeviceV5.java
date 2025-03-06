@@ -80,9 +80,9 @@ public class MobileDeviceV5 extends MobileDeviceV4 {
         // Add the vendors panel and rating panel to the container panel
         containnerExtraPanel.add(vendorsPanel);
         containnerExtraPanel.add(ratePanel);
-
+        
         // Add the container panel to the main panel at the SOUTH position
-        mainPanel.add(containnerExtraPanel, BorderLayout.SOUTH);
+        mainPanel.add(containnerExtraPanel,BorderLayout.SOUTH);
     }
 
     public MobileDeviceV5(String title) {

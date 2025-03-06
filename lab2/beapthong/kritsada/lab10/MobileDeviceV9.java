@@ -61,6 +61,7 @@ public class MobileDeviceV9 extends MobileDeviceV8 {
                 System.out.println(fileChooser.getSelectedFile().getName()); // Prints the name of the selected file to the console (useful for debugging).
                 JOptionPane.showMessageDialog(null, "Data is saved to " + fileChooser.getSelectedFile().getName() + ".txt successfully!", "Save", JOptionPane.INFORMATION_MESSAGE); // Displays a success message to the user. Note the forced ".txt" extension.  This could be problematic if the user intends to save the file with a different extension or no extension.
             }
+            
         } else if (src == newItem) { // Checks if the action came from the "New" menu item.
             clearData(); // Calls the `clearData()` method (presumably defined elsewhere in the class) to clear the contents of the text fields and text area.
         } else if (src == exitItem) { // Checks if the action came from the "Exit" menu item.

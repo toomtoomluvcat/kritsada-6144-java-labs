@@ -26,6 +26,9 @@ public class MobileDeviceV8 extends MobileDeviceV7 implements ActionListener {
      *
      * Author: Kritsada Beapthong Student ID: 6730406144 Section: 2
      */
+    protected int osIndex ;
+    protected String osSelected;
+
     public void clearData() {
         //clear all in formation in panel
         deviceNameTextField.setText("");
@@ -47,17 +50,33 @@ public class MobileDeviceV8 extends MobileDeviceV7 implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Object src = e.getSource();
+        smartphoneRadio.setActionCommand("SmartPhone");
+        tabletRadio.setActionCommand("Tablet");
+        osIndex = operatingComboBox.getSelectedIndex();
+        switch (osIndex) {
+            case 0:
+                osSelected = "Android";
+                break;
+            case 1:
+                osSelected = "iOS";
+                break;
+            case 2:
+                osSelected = "windows";
+                break;
+            case 3:
+                osSelected = "Others";
+                break;
+
+        }
         //if user click resset button clear all data information
-        if (src == resetButton) { 
+        if (src == resetButton) {
             clearData();
         } else if (src == submitButton) { //if user click "ok" show all in formation they input to form
-            smartphoneRadio.setActionCommand("SmartPhone");
-            tabletRadio.setActionCommand("Tablet");
             String info = "Device Name:" + deviceNameTextField.getText() + "\n"
                     + "Brand:" + brandTextField.getText() + "\n"
                     + "Price: " + priceTextField.getText() + "\n"
                     + "Type: " + groupPhone.getSelection().getActionCommand() + "\n"
-                    + "Operating System:" + operatingComboBox.getSelectedIndex() + "\n"
+                    + "Operating System:" +  osSelected + "\n"
                     + "Features" + featuresTextArea.getText() + "\n"
                     + "Availble at: " + String.join(",", vendorsList.getSelectedValuesList()) + "\n" // get list and make it to string
                     + "Rating: " + rateSlide.getValue();

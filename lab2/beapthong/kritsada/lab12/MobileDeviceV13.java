@@ -1,25 +1,29 @@
 package beapthong.kritsada.lab12;
 
-import beapthong.kritsada.lab7.SmartPhone;
+import beapthong.kritsada.lab7.MobileDevice;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.util.*;
 import javax.swing.*;
 
 public class MobileDeviceV13 extends MobileDeviceV12 {
-    List<SmartPhone> smartPhoneList =new ArrayList<>();
+
+    protected List<MobileDevice> deviceList = new ArrayList<>();
     protected JButton addButton, displayButton;
-    StringBuilder messageSmartPhone =new StringBuilder();
+    StringBuilder messageSmartPhone = new StringBuilder();
 
     public MobileDeviceV13(String title) {
         super(title);
     }
 
-    public void createObjSmartPhone(){
-        price =Double.parseDouble(priceTextField.getText().trim().replace(",",""));
-        smartphoneRadio.setActionCommand("SmartPhone");
-        tabletRadio.setActionCommand("Tablet");
-        smartPhoneList.add(new SmartPhone(deviceNameTextField.getText(),brandTextField.getText(),price,groupPhone.getSelection().getActionCommand()));
+    public void createObjSmartPhone() {
+        price = Double.parseDouble(priceTextField.getText().trim().replace(",", ""));
+        if (smartphoneRadio.isSelected()) {
+            deviceList.add(new SmartPhone(deviceNameTextField.getText(), brandTextField.getText(), price, groupPhone.getSelection().getActionCommand()));
+        }else if (tabletRadio.isSelected()){
+            deviceList.add(new Tablet(deviceNameTextField.getText(), brandTextField.getText(), price, groupPhone.getSelection().getActionCommand()));
+        }
+        JOptionPane.showMessageDialog(null, deviceNameTextField.getText()+"is added");
     }
 
     @Override
@@ -29,17 +33,18 @@ public class MobileDeviceV13 extends MobileDeviceV12 {
         if (src == addButton) {
             createObjSmartPhone();
         } else if (src == displayButton) {
-            JOptionPane.showMessageDialog(null,messageInfo());
-            
+            JOptionPane.showMessageDialog(null, messageInfo());
+
         }
     }
 
-    protected  String messageInfo(){
-        for(SmartPhone smartPhone:smartPhoneList){
-            messageSmartPhone.append(smartPhone.toString()+"\n");
+    protected String messageInfo() {
+        messageSmartPhone.setLength(0);
+        for (MobileDevice device : deviceList) {
+            messageSmartPhone.append(device.toString() + "\n");
         }
-        return  messageSmartPhone.toString();
-       
+        return messageSmartPhone.toString();
+
     }
 
     @Override

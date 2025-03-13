@@ -14,38 +14,62 @@ public class MobileDeviceV12 extends MobileDeviceV11 {
         super(title);
     }
 
-
-    
-
-    protected void handleNormalTextField(JTextField tf, JComponent nexComponent) {
+    protected void handleNormalTextField(JTextField tf, JComponent nextComponent) {
+        // Set action commands for radio buttons (this should be outside this method)
+        smartphoneRadio.setActionCommand("SmartPhone");
+        tabletRadio.setActionCommand("Tablet");
+        
         if (tf.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter some data in " + tf.getName());
-            if (nexComponent != null && !tf.getName().equals("Price")) {
-                nexComponent.setEnabled(false);
+            
+            if (nextComponent != null && !tf.getName().equals("Price")) {
+                nextComponent.setEnabled(false);
+            } else {
+                if (groupPhone.getSelection() != null && 
+                    groupPhone.getSelection().getActionCommand().equals("SmartPhone")) {
+                    tabletRadio.setEnabled(false);
+                } else {
+                    smartphoneRadio.setEnabled(false);
+                }
             }
+            
             tf.requestFocusInWindow();
-           
         } else {
             if (tf.getName().equals("Price")) {
                 try {
-                   price = Double.parseDouble(tf.getText().replace(",",""));
+                    price = Double.parseDouble(tf.getText().replace(",", ""));
+                    
                     if (price < 0) {
-                        JOptionPane.showMessageDialog(null, "Price must be a positive number", "error", JOptionPane.ERROR_MESSAGE);
-                    } else if(price>=0){
-                        
-                        JOptionPane.showMessageDialog(null, String.format("%s is change to %.2f",tf.getName(),price));
+                        JOptionPane.showMessageDialog(null, "Price must be a positive number", 
+                                                     "Error", JOptionPane.ERROR_MESSAGE);
+                        // Disable radio buttons for invalid price
+                        smartphoneRadio.setEnabled(false);
+                        tabletRadio.setEnabled(false);
+                    } else {
+                        JOptionPane.showMessageDialog(null, 
+                            String.format("%s is changed to %.1f", tf.getName(), price));
+                        // Enable radio buttons when price is valid
+                        smartphoneRadio.setEnabled(true);
+                        tabletRadio.setEnabled(true);
                     }
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Please enter a valid number in Price");
-
+                    // Disable radio buttons for invalid price format
+                    smartphoneRadio.setEnabled(false);
+                    tabletRadio.setEnabled(false);
+                    tf.requestFocusInWindow();
+                    return;
                 }
-                nexComponent.requestFocusInWindow();
             } else {
-                JOptionPane.showMessageDialog(null, tf.getName() + "is change to " + tf.getText());
-                nexComponent.requestFocusInWindow();
+                JOptionPane.showMessageDialog(null, 
+                    tf.getName() + " is changed to " + tf.getText());
+            }
+            
+            if (nextComponent != null) {
+                nextComponent.requestFocusInWindow();
+                nextComponent.setEnabled(true);
             }
         }
-
     }
 
     @Override
@@ -57,7 +81,7 @@ public class MobileDeviceV12 extends MobileDeviceV11 {
         } else if (src == brandTextField) {
             handleNormalTextField(brandTextField, priceTextField);
         } else if (src == priceTextField) {
-            handleNormalTextField(priceTextField, priceTextField);
+            handleNormalTextField(priceTextField, operatingComboBox);
         }
 
     }

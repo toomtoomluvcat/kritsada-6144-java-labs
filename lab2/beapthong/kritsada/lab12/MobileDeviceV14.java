@@ -1,6 +1,5 @@
 package beapthong.kritsada.lab12;
 
-import beapthong.kritsada.lab7.SmartPhone;
 import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
@@ -44,7 +43,7 @@ public class MobileDeviceV14 extends MobileDeviceV13 {
                     String brand = brandpart[0];
                     String[] pricePart = brandpart[1].split(" ");
                     double price = Double.parseDouble(pricePart[0].trim());
-                    smartPhoneList.add(new SmartPhone(name, brand, price, type));
+                    deviceList.add(new SmartPhone(name, brand, price, type));
                 }
                 JOptionPane.showMessageDialog(null, "Read device form the file " + selectedFile.getAbsolutePath() + " are as follows:\n" + messageInfo());
             } catch (IOException ex) {

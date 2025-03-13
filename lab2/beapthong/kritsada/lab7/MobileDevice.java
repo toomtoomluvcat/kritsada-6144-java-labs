@@ -11,6 +11,7 @@ public abstract class MobileDevice {
  * ID: 673040614-4
  * Section: 2
  */
+
     protected String color;
     protected double price;
 

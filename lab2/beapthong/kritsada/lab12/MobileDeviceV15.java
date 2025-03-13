@@ -1,21 +1,8 @@
 package beapthong.kritsada.lab12;
 
-import beapthong.kritsada.lab7.SmartPhone;
-import java.io.BufferedReader;
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JFileChooser;
-import javax.swing.JMenu;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import beapthong.kritsada.lab7.MobileDevice;
+import java.io.*;
+import javax.swing.*;
 
 public class MobileDeviceV15 extends MobileDeviceV14 {
 
@@ -56,48 +43,36 @@ public class MobileDeviceV15 extends MobileDeviceV14 {
             int returnValue = fileChooser.showSaveDialog(this);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 selectedFile = fileChooser.getSelectedFile();
-                System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 
+                // Ensure the file has a ".bin" extension
                 if (!selectedFile.getName().endsWith(".bin")) {
                     selectedFile = new File(selectedFile.getAbsolutePath() + ".bin");
                     System.out.println("Adjusted filename to: " + selectedFile.getAbsolutePath());
                 }
 
-                try {
-                    if (!selectedFile.exists()) {
-                        boolean created = selectedFile.createNewFile();
-                        System.out.println("File created: " + created);
-                    }
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(this, "Error creating file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
-                    return;
-                }
-
+                // Save to binary file
                 try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(selectedFile))) {
-                    for (SmartPhone device : smartPhoneList) {
+                    for (MobileDevice device : deviceList) {
                         oos.writeObject(device);
-                        System.out.println("Wrote device: " + device);
                     }
                     JOptionPane.showMessageDialog(this, "Data is saved to " + selectedFile.getAbsolutePath() + " successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(this, "Error saving file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
                 }
             }
         } else {
+            // Call super method to handle text file saving
             super.handleMenuSave();
         }
     }
 
     @Override
     protected void handleMenuOpen() {
-        int value = fileChooser.showOpenDialog(null); // Display the "Open" dialog
-        if (value == JFileChooser.APPROVE_OPTION) { // Check if the user clicked "Open"
+        int value = fileChooser.showOpenDialog(null); 
+        if (value == JFileChooser.APPROVE_OPTION) {
             selectedFile = fileChooser.getSelectedFile();
             JOptionPane.showMessageDialog(null, "Opening: " + selectedFile.getAbsolutePath());
 
-            // Try to determine if the file is binary or text based on the extension or content
             try {
                 if (isBinaryFile(selectedFile)) {
                     openBinaryFile(selectedFile);
@@ -111,48 +86,61 @@ public class MobileDeviceV15 extends MobileDeviceV14 {
     }
 
     private boolean isBinaryFile(File file) throws IOException {
-        // A simple way to check for binary files is by reading the first few characters
-        // You can also check the file extension if you have a known convention
         String filename = file.getName();
         String fileExtension = filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
 
-        // Assuming ".bin" or similar for binary files as a simple check
         if (fileExtension.equals("bin")) {
             return true;
         }
 
-        // If extensions aren't sufficient, you can try reading the file header or analyze content
         try (FileInputStream fis = new FileInputStream(file)) {
             byte[] buffer = new byte[1024];
             int bytesRead = fis.read(buffer);
             for (int i = 0; i < bytesRead; i++) {
                 if (buffer[i] < 0x09) {
-                    return true;
+                    return true; // Possibly binary file due to control characters
                 }
             }
         }
-        return false;
+        return false; // Assume it's a text file if not binary
     }
 
     private void openBinaryFile(File file) throws IOException {
+        deviceList.clear();
+
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             Object obj;
-            while (true) { // Continue until EOFException is thrown
-                obj = ois.readObject();
-                if (obj instanceof SmartPhone) {
-                    smartPhoneList.add((SmartPhone) obj);
+            while (true) {
+                try {
+                    obj = ois.readObject();
+                    if (obj instanceof SmartPhone) {
+                        SmartPhone device = (SmartPhone) obj;
+                        System.out.println("Read SmartPhone with price: " + device.getPrice());
+                        deviceList.add(device);
+                    } else if (obj instanceof Tablet) {
+                        Tablet device = (Tablet) obj;
+                        System.out.println("Read Tablet with price: " + device.getPrice());
+                        deviceList.add(device);
+                    } else {
+                        System.out.println("Unknown device type: " + obj.getClass().getName());
+                    }
+                } catch (EOFException e) {
+                    break; // End of file reached
+                } catch (ClassNotFoundException e) {
+                    JOptionPane.showMessageDialog(null, "Class not found when reading binary file: " + e.getMessage(),
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
                 }
             }
-        } catch (EOFException e) {
-            // This exception indicates the end of the binary file
-        } catch (ClassNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "Class not found when reading binary file.", "Error", JOptionPane.ERROR_MESSAGE);
         }
-        JOptionPane.showMessageDialog(null, "Read devices from the binary file " + file.getAbsolutePath() + " are as follows:\n" + messageInfo());
+
+        JOptionPane.showMessageDialog(null, "Read devices from the binary file " + file.getAbsolutePath()
+                + " are as follows:\n" + messageInfo());
     }
 
     private void openTextFile(File file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            deviceList.clear();
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] part = line.split(":");
@@ -163,7 +151,8 @@ public class MobileDeviceV15 extends MobileDeviceV14 {
                 String brand = brandPart[0];
                 String[] pricePart = brandPart[1].split(" ");
                 double price = Double.parseDouble(pricePart[0].trim());
-                smartPhoneList.add(new SmartPhone(name, brand, price, type));
+                deviceList.add(new SmartPhone(name, brand, price, type));
+                System.out.println(price);
             }
             JOptionPane.showMessageDialog(null, "Read devices from the text file " + file.getAbsolutePath() + " are as follows:\n" + messageInfo());
         }

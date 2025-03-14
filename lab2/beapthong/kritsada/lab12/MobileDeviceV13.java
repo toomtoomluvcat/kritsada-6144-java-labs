@@ -48,17 +48,22 @@ public class MobileDeviceV13 extends MobileDeviceV12 {
                     price,
                     groupPhone.getSelection().getActionCommand()
             ));
+
+        JOptionPane.showMessageDialog(null,"SmartPhone"+ deviceNameTextField.getText() + " is added");
+
         } else if (tabletRadio.isSelected()) {
             deviceList.add(new Tablet(
                     deviceNameTextField.getText(),
                     brandTextField.getText(),
                     price,
                     groupPhone.getSelection().getActionCommand()
+                    
             ));
-        }
-
+            
         // Show confirmation message
-        JOptionPane.showMessageDialog(null, deviceNameTextField.getText() + " is added");
+        JOptionPane.showMessageDialog(null,"Tablet"+ deviceNameTextField.getText() + " is added");
+        
+        }
     }
 
     @Override

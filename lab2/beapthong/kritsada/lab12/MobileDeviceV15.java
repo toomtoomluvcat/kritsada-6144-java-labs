@@ -64,7 +64,6 @@ public class MobileDeviceV15 extends MobileDeviceV14 {
                 // Ensure the file has a ".bin" extension
                 if (!selectedFile.getName().endsWith(".bin")) {
                     selectedFile = new File(selectedFile.getAbsolutePath() + ".bin");
-                    System.out.println("Adjusted filename to: " + selectedFile.getAbsolutePath());
                 }
 
                 // Save to binary file
@@ -132,14 +131,10 @@ public class MobileDeviceV15 extends MobileDeviceV14 {
                     obj = ois.readObject();  // Read an object from the binary stream
                     if (obj instanceof SmartPhone) {
                         SmartPhone device = (SmartPhone) obj;  // Cast to SmartPhone
-                        System.out.println("Read SmartPhone with price: " + device.getPrice());
                         deviceList.add(device);  // Add the SmartPhone to the list
                     } else if (obj instanceof Tablet) {
                         Tablet device = (Tablet) obj;  // Cast to Tablet
-                        System.out.println("Read Tablet with price: " + device.getPrice());
                         deviceList.add(device);  // Add the Tablet to the list
-                    } else {
-                        System.out.println("Unknown device type: " + obj.getClass().getName());  // Handle unknown device types
                     }
                 } catch (EOFException e) {
                     break;  // End of file reached, exit loop
@@ -172,7 +167,6 @@ public class MobileDeviceV15 extends MobileDeviceV14 {
                 String[] pricePart = brandPart[1].split(" ");  // Split the price portion
                 double price = Double.parseDouble(pricePart[0].trim());  // Parse the price and trim extra spaces
                 deviceList.add(new SmartPhone(name, brand, price, type));  // Add the parsed device to the list
-                System.out.println(price);  // Log the price to the console (optional)
             }
             JOptionPane.showMessageDialog(null, "Read devices from the text file " + file.getAbsolutePath() + " are as follows:\n" + messageInfo());  // Show a dialog with the list of devices
         }

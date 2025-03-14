@@ -4,103 +4,92 @@ import beapthong.kritsada.lab10.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-;
-
 public class MobileDeviceV12 extends MobileDeviceV11 {
 
     /**
- * MobileDeviceV12 - Extends MobileDeviceV11 to enhance form validation and event handling.
- *
- * This class extends `MobileDeviceV11` by improving user interaction through:
- * - Validating text fields for device name, brand, and price.
- * - Enabling/disabling components dynamically based on user input.
- * - Handling price input validation to ensure only positive numeric values are allowed.
- * - Implementing additional UI behaviors such as radio button control based on price validity.
- *
- * Key Features:
- * - Disables form components when invalid input is detected.
- * - Enables the correct input sequence, guiding users through proper data entry.
- * - Provides informative error messages when incorrect values are entered.
- *
- * Author: Kritsada Beapthong  
- * Student ID: 6730406144  
- * Section: 2  
- */
+     * MobileDeviceV12 - Extension of MobileDeviceV11 with improved form
+     * validation and event handling.
+     *
+     * This class implements enhanced input validation for all form fields
+     * including: - Text field validation for required fields - Numeric input
+     * validation for price fields - Positive number validation - Proper error
+     * messaging using JOptionPane dialog boxes - Focus management between form
+     * components - Dynamic enabling/disabling of components based on validation
+     * results
+     *
+     * The class demonstrates good practices in GUI form validation including: -
+     * Clear user feedback on validation errors - Proper focus handling to guide
+     * users through form completion - Appropriate error messages specific to
+     * the validation issue - Preventing form submission with invalid data
+     *
+     * Author: Kritsada Beapthong Student ID: 6730406144 Section: 2 Date:
+     * [Current Date] Version: 12.0
+     */
 
+    //decare price variable
     protected double price;
-
-    //Constructs a `MobileDeviceV12` object with the specified window title.
 
     public MobileDeviceV12(String title) {
         super(title);
     }
 
     protected void handleNormalTextField(JTextField tf, JComponent nextComponent) {
-
-        //// Assign action commands to radio buttons
-        // Set action commands for radio buttons (this should be outside this method)
-        smartphoneRadio.setActionCommand("SmartPhone");
-        tabletRadio.setActionCommand("Tablet");
-        
-
-        //check is empty
+        // Check if empty
         if (tf.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter some data in " + tf.getName());
-            
-            if (nextComponent != null && !tf.getName().equals("Price")) {
-                nextComponent.setEnabled(false);
-            } else {
-                if (groupPhone.getSelection() != null && 
-                    groupPhone.getSelection().getActionCommand().equals("SmartPhone")) {
-                    tabletRadio.setEnabled(false);
-                } else {
-                    smartphoneRadio.setEnabled(false);
-                }
-            }
-            
             tf.requestFocusInWindow();
-        } else {
-
-            //is price text field
-            if (tf.getName().equals("Price")) {
-                try {
-                    price = Double.parseDouble(tf.getText().replace(",", ""));
-                    
-                    if (price < 0) {
-                        JOptionPane.showMessageDialog(null, "Price must be a positive number", 
-                                                     "Error", JOptionPane.ERROR_MESSAGE);
-                        // Disable radio buttons for invalid price
-                        smartphoneRadio.setEnabled(false);
-                        tabletRadio.setEnabled(false);
-                    } else {
-                        JOptionPane.showMessageDialog(null, 
-                            String.format("%s is changed to %.1f", tf.getName(), price));
-                        // Enable radio buttons when price is valid
-                        smartphoneRadio.setEnabled(true);
-                        tabletRadio.setEnabled(true);
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid number in Price");
-                    // Disable radio buttons for invalid price format
-                    smartphoneRadio.setEnabled(false);
-                    tabletRadio.setEnabled(false);
-                    tf.requestFocusInWindow();
-                    return;
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, 
-                    tf.getName() + " is changed to " + tf.getText());
-            }
-            
             if (nextComponent != null) {
-                nextComponent.requestFocusInWindow();
+                nextComponent.setEnabled(false);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, tf.getName() + " is changed to " + tf.getText());
+            if (nextComponent != null) {
                 nextComponent.setEnabled(true);
+                nextComponent.requestFocusInWindow();
             }
         }
     }
 
+    protected void handlePosNumTextField(JTextField tf, JComponent nextComponent) {
+        // Check if empty
+        if (tf.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please enter some data in " + tf.getName());
+            tf.requestFocusInWindow();
+            if (nextComponent != null) {
+                nextComponent.setEnabled(false);
+            }
+            return;
+        }
 
-    //recive action when user click on the button
+        // Check if it's a valid number
+        try {
+            price = Double.parseDouble(tf.getText().replace(",", ""));
+
+            // Check if number is positive
+            if (price <= 0) {
+                JOptionPane.showMessageDialog(null, tf.getName() + " must be a positive number");
+                tf.requestFocusInWindow();
+                if (nextComponent != null) {
+                    nextComponent.setEnabled(false);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Price is changed to " + price);
+                if (nextComponent != null) {
+                    nextComponent.setEnabled(true);
+                    nextComponent.requestFocusInWindow();
+                }
+            }
+            //show message if is input not number 
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid number in " + tf.getName(), "Error", JOptionPane.ERROR_MESSAGE);
+            tf.requestFocusInWindow();
+            if (nextComponent != null) {
+                nextComponent.setEnabled(false);
+            }
+        }
+    }
+
+    //add action in text name and brad fied
     @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
@@ -110,29 +99,26 @@ public class MobileDeviceV12 extends MobileDeviceV11 {
         } else if (src == brandTextField) {
             handleNormalTextField(brandTextField, priceTextField);
         } else if (src == priceTextField) {
-            handleNormalTextField(priceTextField, operatingComboBox);
+            handlePosNumTextField(priceTextField, operatingComboBox);
         }
-
     }
 
-    //addname for know what this is button
-
+    //add name for reice when is emty
     @Override
     public void addComponents() {
         super.addComponents();
         deviceNameTextField.setName("Device Name");
         brandTextField.setName("Brand");
         priceTextField.setName("Price");
-
     }
 
+    //add listenner for each text fied
     @Override
     public void addListeners() {
         super.addListeners();
         deviceNameTextField.addActionListener(this);
         brandTextField.addActionListener(this);
         priceTextField.addActionListener(this);
-
     }
 
     public static void createAndShowGUI() {
@@ -148,5 +134,4 @@ public class MobileDeviceV12 extends MobileDeviceV11 {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
-
 }

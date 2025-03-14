@@ -8,17 +8,42 @@ import javax.swing.*;
 
 public class MobileDeviceV12 extends MobileDeviceV11 {
 
+    /**
+ * MobileDeviceV12 - Extends MobileDeviceV11 to enhance form validation and event handling.
+ *
+ * This class extends `MobileDeviceV11` by improving user interaction through:
+ * - Validating text fields for device name, brand, and price.
+ * - Enabling/disabling components dynamically based on user input.
+ * - Handling price input validation to ensure only positive numeric values are allowed.
+ * - Implementing additional UI behaviors such as radio button control based on price validity.
+ *
+ * Key Features:
+ * - Disables form components when invalid input is detected.
+ * - Enables the correct input sequence, guiding users through proper data entry.
+ * - Provides informative error messages when incorrect values are entered.
+ *
+ * Author: Kritsada Beapthong  
+ * Student ID: 6730406144  
+ * Section: 2  
+ */
+
     protected double price;
+
+    //Constructs a `MobileDeviceV12` object with the specified window title.
 
     public MobileDeviceV12(String title) {
         super(title);
     }
 
     protected void handleNormalTextField(JTextField tf, JComponent nextComponent) {
+
+        //// Assign action commands to radio buttons
         // Set action commands for radio buttons (this should be outside this method)
         smartphoneRadio.setActionCommand("SmartPhone");
         tabletRadio.setActionCommand("Tablet");
         
+
+        //check is empty
         if (tf.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please enter some data in " + tf.getName());
             
@@ -35,6 +60,8 @@ public class MobileDeviceV12 extends MobileDeviceV11 {
             
             tf.requestFocusInWindow();
         } else {
+
+            //is price text field
             if (tf.getName().equals("Price")) {
                 try {
                     price = Double.parseDouble(tf.getText().replace(",", ""));
@@ -72,6 +99,8 @@ public class MobileDeviceV12 extends MobileDeviceV11 {
         }
     }
 
+
+    //recive action when user click on the button
     @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
@@ -85,6 +114,8 @@ public class MobileDeviceV12 extends MobileDeviceV11 {
         }
 
     }
+
+    //addname for know what this is button
 
     @Override
     public void addComponents() {

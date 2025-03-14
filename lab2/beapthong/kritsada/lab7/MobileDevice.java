@@ -1,6 +1,9 @@
 package beapthong.kritsada.lab7;
 
-public abstract class MobileDevice {
+import java.io.Serializable;
+public abstract class MobileDevice implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     /**
  * This abstract class represents a general mobile device.
  * It provides common properties and methods shared by all mobile devices, 

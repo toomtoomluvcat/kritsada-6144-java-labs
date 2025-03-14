@@ -5,6 +5,24 @@ import java.io.*;
 import javax.swing.*;
 
 public class MobileDeviceV15 extends MobileDeviceV14 {
+    /**
+ * MobileDeviceV12 - Extends MobileDeviceV11 to enhance form validation and event handling.
+ *
+ * This class extends `MobileDeviceV11` by improving user interaction through:
+ * - Validating text fields for device name, brand, and price.
+ * - Enabling/disabling components dynamically based on user input.
+ * - Handling price input validation to ensure only positive numeric values are allowed.
+ * - Implementing additional UI behaviors such as radio button control based on price validity.
+ *
+ * Key Features:
+ * - Disables form components when invalid input is detected.
+ * - Enables the correct input sequence, guiding users through proper data entry.
+ * - Provides informative error messages when incorrect values are entered.
+ *
+ * Author: Kritsada Beapthong  
+ * Student ID: 6730406144  
+ * Section: 2  
+ */
 
     JMenu formatMenu;
     JCheckBoxMenuItem textCheckBoxMenuItem, binaryBoxMenuItem;
@@ -33,7 +51,6 @@ public class MobileDeviceV15 extends MobileDeviceV14 {
         configMenu.add(formatMenu);
         deviceMenuBar.add(configMenu);
         setJMenuBar(deviceMenuBar);
-
         textCheckBoxMenuItem.setSelected(true);
     }
 
@@ -68,7 +85,7 @@ public class MobileDeviceV15 extends MobileDeviceV14 {
 
     @Override
     protected void handleMenuOpen() {
-        int value = fileChooser.showOpenDialog(null); 
+        int value = fileChooser.showOpenDialog(null);
         if (value == JFileChooser.APPROVE_OPTION) {
             selectedFile = fileChooser.getSelectedFile();
             JOptionPane.showMessageDialog(null, "Opening: " + selectedFile.getAbsolutePath());
@@ -106,55 +123,58 @@ public class MobileDeviceV15 extends MobileDeviceV14 {
     }
 
     private void openBinaryFile(File file) throws IOException {
-        deviceList.clear();
-
+        deviceList.clear();  // Clear the existing device list before loading new data
+    
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
             Object obj;
             while (true) {
                 try {
-                    obj = ois.readObject();
+                    obj = ois.readObject();  // Read an object from the binary stream
                     if (obj instanceof SmartPhone) {
-                        SmartPhone device = (SmartPhone) obj;
+                        SmartPhone device = (SmartPhone) obj;  // Cast to SmartPhone
                         System.out.println("Read SmartPhone with price: " + device.getPrice());
-                        deviceList.add(device);
+                        deviceList.add(device);  // Add the SmartPhone to the list
                     } else if (obj instanceof Tablet) {
-                        Tablet device = (Tablet) obj;
+                        Tablet device = (Tablet) obj;  // Cast to Tablet
                         System.out.println("Read Tablet with price: " + device.getPrice());
-                        deviceList.add(device);
+                        deviceList.add(device);  // Add the Tablet to the list
                     } else {
-                        System.out.println("Unknown device type: " + obj.getClass().getName());
+                        System.out.println("Unknown device type: " + obj.getClass().getName());  // Handle unknown device types
                     }
                 } catch (EOFException e) {
-                    break; // End of file reached
+                    break;  // End of file reached, exit loop
                 } catch (ClassNotFoundException e) {
                     JOptionPane.showMessageDialog(null, "Class not found when reading binary file: " + e.getMessage(),
-                            "Error", JOptionPane.ERROR_MESSAGE);
+                            "Error", JOptionPane.ERROR_MESSAGE);  // Handle deserialization errors
                     break;
                 }
             }
         }
-
+    
         JOptionPane.showMessageDialog(null, "Read devices from the binary file " + file.getAbsolutePath()
-                + " are as follows:\n" + messageInfo());
+                + " are as follows:\n" + messageInfo());  // Show a dialog with the list of devices
     }
 
+//     * @param file The file to be opened and read.
+//  * @throws IOException if an error occurs during file reading.
+//  */
     private void openTextFile(File file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            deviceList.clear();
+            deviceList.clear();  // Clear the existing device list before loading new data
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] part = line.split(":");
-                String type = part[0].substring(part[0].length() - 1);
-                String[] partSmartPhone = part[1].split("\\(");
-                String name = partSmartPhone[0].substring(1);
-                String[] brandPart = partSmartPhone[1].split("\\) ");
-                String brand = brandPart[0];
-                String[] pricePart = brandPart[1].split(" ");
-                double price = Double.parseDouble(pricePart[0].trim());
-                deviceList.add(new SmartPhone(name, brand, price, type));
-                System.out.println(price);
+                String[] part = line.split(":");  // Split the line by ':' to separate type from device details
+                String type = part[0].substring(part[0].length() - 1);  // Extract the device type (SmartPhone or Tablet)
+                String[] partSmartPhone = part[1].split("\\(");  // Split name and brand
+                String name = partSmartPhone[0].substring(1);  // Extract device name, removing leading space
+                String[] brandPart = partSmartPhone[1].split("\\) ");  // Split brand and price
+                String brand = brandPart[0];  // Extract the brand name
+                String[] pricePart = brandPart[1].split(" ");  // Split the price portion
+                double price = Double.parseDouble(pricePart[0].trim());  // Parse the price and trim extra spaces
+                deviceList.add(new SmartPhone(name, brand, price, type));  // Add the parsed device to the list
+                System.out.println(price);  // Log the price to the console (optional)
             }
-            JOptionPane.showMessageDialog(null, "Read devices from the text file " + file.getAbsolutePath() + " are as follows:\n" + messageInfo());
+            JOptionPane.showMessageDialog(null, "Read devices from the text file " + file.getAbsolutePath() + " are as follows:\n" + messageInfo());  // Show a dialog with the list of devices
         }
     }
 
